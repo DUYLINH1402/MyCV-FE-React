@@ -1,0 +1,56 @@
+import { Coffee, Github, Linkedin, Mail } from "lucide-react";
+
+// ========================================
+// COMPONENT: Footer - Chân trang với thông tin liên hệ
+// ========================================
+const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  // Các link social media
+  const socialLinks = [
+    { icon: Github, href: "https://github.com/duylinh", label: "GitHub" },
+    { icon: Linkedin, href: "https://linkedin.com/in/duylinh", label: "LinkedIn" },
+    { icon: Mail, href: "mailto:duylinh63b5@gmail.com", label: "Email" },
+  ];
+
+  return (
+    <footer className="bg-gray-100 dark:bg-dracula-current border-t border-gray-300 dark:border-dracula-comment">
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          {/* Logo & Copyright */}
+          <div className="flex items-center gap-2 text-gray-500 dark:text-dracula-comment font-mono text-sm">
+            <Coffee className="text-orange-500 dark:text-orange-400" size={18} />
+            <span>
+              © {currentYear} Nguyen Duy Linh
+              <span className="text-pink-500 dark:text-dracula-pink">.</span>
+              <span className="text-green-600 dark:text-dracula-green">build</span>
+              <span className="text-gray-500 dark:text-dracula-comment">()</span>
+            </span>
+          </div>
+
+          {/* Social Links */}
+          <div className="flex items-center gap-4">
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-white dark:bg-dracula-background hover:bg-gray-200 dark:hover:bg-dracula-comment text-gray-500 dark:text-dracula-comment hover:text-gray-900 dark:hover:text-dracula-foreground transition-colors"
+                aria-label={link.label}>
+                <link.icon size={18} />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Tagline */}
+        <p className="text-center text-gray-500 dark:text-dracula-comment font-mono text-xs mt-4">
+          {"/* "}Built with React, Tailwind CSS & Framer Motion{" */"}
+        </p>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

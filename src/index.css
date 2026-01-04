@@ -1,0 +1,50 @@
+/* Import font JetBrains Mono từ Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS tùy chỉnh cho hiệu ứng đèn soi (spotlight) */
+@layer utilities {
+  .mouse-spotlight {
+    /* Tạo một lớp nền gradient tròn theo vị trí chuột.
+      Vị trí tâm (at var(--mouse-x) var(--mouse-y)) sẽ được cập nhật bằng React.
+      Màu sắc: Sáng nhẹ ở tâm (màu xanh purple nhẹ) và trong suốt dần ra ngoài.
+    */
+    background: radial-gradient(
+      600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(139, 233, 253, 0.2),
+      /* Cyan nhẹ - phong cách Dracula */ transparent 15%
+    );
+    z-index: 1000;
+  }
+}
+
+/* Smooth scroll cho toàn bộ trang - mượt mà khi lăn chuột */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Đặt màu nền mặc định - hỗ trợ light/dark mode */
+body {
+  @apply bg-gray-50 dark:bg-dracula-background font-mono text-gray-900 dark:text-dracula-foreground;
+}
+
+/* Scrollbar custom cho phong cách IDE - hỗ trợ light/dark mode */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-200 dark:bg-dracula-background;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400 dark:bg-dracula-comment rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-orange-400 dark:bg-dracula-purple;
+}
