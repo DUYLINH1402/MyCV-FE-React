@@ -11,3 +11,6 @@ export * from "./layout";
 
 // UI components (IntelliJMockup, SpringBootTerminal)
 export * from "./ui";
+
+// LightRays - Hiệu ứng tia sáng cho Dark Mode
+export { default as LightRays } from "./LightRays";

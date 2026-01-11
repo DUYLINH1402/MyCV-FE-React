@@ -1,12 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import Lenis from "lenis";
-import { Header, Footer, ConsoleLogsStream, IntroScreen } from "./components";
+import { Header, Footer, ConsoleLogsStream, IntroScreen, LightRays } from "./components";
 import { Hero, About, Skills, Projects } from "./sections";
 import SystemArchitecture from "./components/ui/SystemArchitecture";
+import { ProfileProvider } from "./context";
 
 // ========================================
 // MAIN COMPONENT: App
 // Tổng hợp tất cả các sections và layout components
+// Sử dụng ProfileProvider để chia sẻ dữ liệu profile từ API
 // ========================================
 function App() {
   // State để kiểm tra đã qua màn hình intro chưa
@@ -40,7 +42,7 @@ function App() {
     if (showIntro) return;
 
     const lenis = new Lenis({
-      duration: 2, // Thời gian scroll (giây) - càng cao càng chậm
+      duration: 1.5, // Thời gian scroll (giây) - càng cao càng chậm
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing mượt mà
       orientation: "vertical", // Hướng scroll
       smoothWheel: true, // Smooth scroll với lăn chuột
@@ -66,7 +68,7 @@ function App() {
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
   return (
-    <>
+    <ProfileProvider>
       {/* === INTRO SCREEN === */}
       {/* Màn hình giới thiệu khi vào trang */}
       {showIntro && <IntroScreen onComplete={() => setShowIntro(false)} />}
@@ -84,6 +86,26 @@ function App() {
         }}>
         {/* === LỚP CHỨA HIỆU ỨNG SPOTLIGHT === */}
         <div className="pointer-events-none fixed inset-0 z-30 transition duration-300 mouse-spotlight dark:opacity-100 opacity-0"></div>
+
+        {/* === LIGHT RAYS EFFECT - Chỉ hiển thị ở Dark Mode === */}
+        {/* Hiệu ứng tia sáng phát ra từ trên xuống, tạo cảm giác chuyên nghiệp */}
+        {isDarkMode && (
+          <div className="fixed inset-0 z-200 pointer-events-none">
+            <LightRays
+              raysOrigin="top-center"
+              raysColor="#8be9fd"
+              raysSpeed={0.8}
+              lightSpread={1.2}
+              rayLength={1.5}
+              followMouse={true}
+              mouseInfluence={0.3}
+              noiseAmount={0.05}
+              distortion={0.02}
+              fadeDistance={1.2}
+              saturation={0.9}
+            />
+          </div>
+        )}
 
         {/* === HEADER với Navigation === */}
         <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
@@ -113,7 +135,7 @@ function App() {
         {/* Hiển thị Spring Boot logs ở dưới màn hình, chạy khi cuộn trang */}
         <ConsoleLogsStream />
       </div>
-    </>
+    </ProfileProvider>
   );
 }
 

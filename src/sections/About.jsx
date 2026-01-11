@@ -1,34 +1,46 @@
 import { motion } from "framer-motion";
 import { Code2, Briefcase, GraduationCap, Award } from "lucide-react";
 import { SectionTitle, MagicCard } from "../components";
+import { useProfile } from "../context";
 
 // ========================================
 // SECTION: About - Giới thiệu về bản thân
 // Bao gồm thông tin cá nhân, kinh nghiệm, học vấn
 // Sử dụng MagicCard cho hiệu ứng hover đẹp mắt (lấy từ Magic Bento)
+// Dữ liệu được lấy từ API thông qua ProfileContext
 // ========================================
 const About = () => {
-  // Các thông tin nổi bật
+  // Lấy dữ liệu profile từ context
+  const { profile } = useProfile();
+
+  // Tách tên từ fullName để hiển thị
+  const authorName = profile?.fullName || "Nguyen Duy Linh";
+  const authorRole = profile?.title || "Backend Engineer";
+
+  // Các thông tin nổi bật - lấy từ API
   const highlights = [
     {
       icon: Briefcase,
-      title: "3+ Years Experience",
-      description: "Backend development with Java ecosystem",
+      title: "Intensive Training",
+      description: `${
+        profile?.experienceYears || "1+"
+      } Years of dedicated learning and building production-grade applications with Java Spring Boot ecosystem.`,
     },
     {
       icon: Code2,
-      title: "15+ Projects",
-      description: "From REST APIs to Microservices architecture",
+      title: `${profile?.totalProjects || "3+"} Scalable Projects`,
+      description:
+        "Integrated ZaloPay, OpenAI, WebSockets, and AWS Cloud (EC2, S3, RDS) for real-world business logic",
     },
     {
       icon: GraduationCap,
-      title: "Computer Science",
-      description: "Bachelor's degree in Software Engineering",
+      title: "Education",
+      description: profile?.educationSummary || "Bachelor's degree in Software Engineering",
     },
     {
       icon: Award,
       title: "Certifications",
-      description: "AWS, Spring Professional certified",
+      description: profile?.certSummary || "Professional certified",
     },
   ];
 
@@ -36,7 +48,6 @@ const About = () => {
     <section id="about" className="py-20 relative z-40">
       <div className="max-w-7xl mx-auto px-6">
         <SectionTitle title="aboutMe" subtitle="Get to know me better" />
-
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Cột trái: Mô tả chi tiết với MagicCard */}
           <motion.div
@@ -58,37 +69,33 @@ const About = () => {
               particleCount={20}
               glowColor="249, 115, 22"
               className="bg-gray-100 dark:bg-dracula-current rounded-lg p-6 border border-gray-300 dark:border-dracula-comment cursor-pointer">
-              {/* Comment style */}
+              {/* Comment style - Dữ liệu từ API */}
               <p className="text-gray-500 dark:text-dracula-comment font-mono text-sm mb-4">
                 {"/**"}
                 <br />
-                {"* @author Nguyen Duy Linh"}
+                {`* @author ${authorName}`}
                 <br />
-                {"* @role Backend Engineer"}
+                {`* @role ${authorRole}`}
                 <br />
-                {"* @since 2021"}
+                {`* @since ${
+                  profile?.createdAt ? new Date(profile.createdAt).getFullYear() : 2021
+                }`}
                 <br />
                 {"*/"}
               </p>
 
+              {/* Bio từ API */}
               <p className="text-gray-900 dark:text-dracula-foreground leading-relaxed mb-4">
-                I'm a passionate{" "}
-                <span className="text-orange-500 dark:text-orange-400">Backend Engineer</span>{" "}
-                specialized in building robust, scalable systems using{" "}
-                <span className="text-green-600 dark:text-dracula-green">Java</span> and
-                <span className="text-green-600 dark:text-dracula-green"> Spring Boot</span>. My
-                expertise lies in designing RESTful APIs, implementing microservices architecture,
-                and optimizing database performance.
+                {profile?.bio ||
+                  "I'm a passionate Backend Engineer specialized in building robust, scalable systems using Java and Spring Boot."}
               </p>
 
+              {/* Professional Summary từ API */}
               <p className="text-gray-900 dark:text-dracula-foreground leading-relaxed">
-                I believe in writing{" "}
-                <span className="text-pink-600 dark:text-dracula-pink">
-                  clean, maintainable code
-                </span>{" "}
-                and following best practices like SOLID principles, Design Patterns, and TDD. When
-                I'm not coding, you'll find me exploring new technologies or contributing to
-                open-source projects.
+                <>
+                  To me, Backend is more than just APIs — it's about robust architecture, data
+                  integrity, and proactive security
+                </>
               </p>
             </MagicCard>
           </motion.div>
@@ -119,7 +126,7 @@ const About = () => {
                   enableMagnetism={true}
                   particleCount={8}
                   glowColor="249, 115, 22"
-                  className="h-full bg-gray-100 dark:bg-dracula-current rounded-lg p-5 border border-gray-300 dark:border-dracula-comment cursor-pointer">
+                  className="h-full bg-gray-100 dark:bg-dracula-current rounded-lg p-5  border border-gray-300 dark:border-dracula-comment cursor-pointer">
                   <item.icon className="text-orange-500 dark:text-orange-400 mb-3" size={28} />
                   <h3 className="text-gray-900 dark:text-dracula-foreground font-bold mb-1">
                     {item.title}

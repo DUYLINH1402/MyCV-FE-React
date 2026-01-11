@@ -1,14 +1,33 @@
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
-import { Mail, FolderGit2, Coffee, Database, Server, Layers } from "lucide-react";
+import { Mail, FolderGit2, Coffee, Database, Server, Layers, Github, Linkedin } from "lucide-react";
 import { Button, Badge } from "../components";
 import { IntelliJMockup, SpringBootTerminal } from "../components";
+import { useProfile } from "../context";
+import Spinner from "../components/common/Spinner";
 
 // ========================================
 // SECTION: Hero - Phần giới thiệu đầu tiên của trang
 // Bao gồm thông tin cá nhân, tech stack, và code mockup
+// Dữ liệu được lấy từ API thông qua ProfileContext
 // ========================================
 const Hero = () => {
+  // Lấy dữ liệu profile từ context
+  const { profile, loading } = useProfile();
+
+  // Skeleton loading khi đang fetch data
+  if (loading) {
+    return (
+      <section
+        id="home"
+        className="max-w-7xl mx-auto px-6 pt-32 pb-16 min-h-screen flex items-center justify-center">
+        <div className="animate-pulse text-orange-500 dark:text-orange-400 text-xl font-mono">
+          [INFO] Loading profile data...
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section
       id="home"
@@ -23,12 +42,12 @@ const Hero = () => {
           ease: [0.25, 0.46, 0.45, 0.94],
         }}
         className="flex-1 text-center lg:text-left space-y-8">
-        {/* Ảnh đại diện với viền gradient */}
+        {/* Ảnh đại diện với viền gradient - Lấy từ API */}
         <div className="relative inline-block">
           <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-purple-600 dark:to-dracula-purple rounded-full blur opacity-75 animate-pulse"></div>
           <img
-            src="https://res.cloudinary.com/ddia5yfia/image/upload/v1767447064/3C937529-0AD2-409F-B0BD-BB31B4A5A841_1_201_a_u9dzus.jpg"
-            alt="Nguyen Duy Linh - Backend Engineer"
+            src={profile?.avatarUrl}
+            alt={`${profile?.fullName} - ${profile?.title}`}
             className="relative rounded-full w-40 h-40 border-4 border-white dark:border-dracula-background mx-auto lg:mx-0 object-cover object-[50%_30%]"
           />
         </div>
@@ -45,14 +64,13 @@ const Hero = () => {
           {/* Hiệu ứng chữ đánh máy - Nội dung Backend Engineer */}
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
             <TypeAnimation
+              key={profile?.fullName}
               sequence={[
-                "Nguyen Duy Linh",
+                profile?.fullName || "Nguyen Duy Linh",
                 2000,
-                "Backend Engineer",
+                profile?.title || "Backend Engineer",
                 2000,
                 "Java & Spring Boot",
-                2000,
-                "System Architect",
                 2000,
               ]}
               wrapper="span"
@@ -62,14 +80,10 @@ const Hero = () => {
             />
           </h1>
 
+          {/* Bio từ API */}
           <p className="text-lg text-gray-500 dark:text-dracula-comment max-w-lg mx-auto lg:mx-0 leading-relaxed">
-            Building scalable microservices and RESTful APIs with Spring Boot. Passionate about
-            clean architecture, database optimization, and handling
-            <span className="text-green-600 dark:text-dracula-green font-semibold">
-              {" "}
-              10k+ concurrent requests
-            </span>
-            .
+            {profile?.professionalSummary ||
+              "Backend is more than APIs — it's the security, data, performance, and scalability of the entire system."}
           </p>
         </div>
 
@@ -81,10 +95,16 @@ const Hero = () => {
           <Badge icon={Server} label="Docker" color="text-purple-600 dark:text-dracula-purple" />
         </div>
 
-        {/* Các nút hành động */}
-        <div className="flex gap-4 justify-center lg:justify-start">
-          <Button text="Contact Me" primary icon={Mail} href="#contact" />
+        {/* Các nút hành động - Email từ API */}
+        <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+          <Button text="Contact Me" primary icon={Mail} href={`mailto:${profile?.email}`} />
           <Button text="View Projects" icon={FolderGit2} href="#projects" />
+          {profile?.githubUrl && (
+            <Button text="GitHub" icon={Github} href={profile.githubUrl} target="_blank" />
+          )}
+          {profile?.linkedinUrl && (
+            <Button text="LinkedIn" icon={Linkedin} href={profile.linkedinUrl} target="_blank" />
+          )}
         </div>
       </motion.div>
 

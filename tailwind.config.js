@@ -6,24 +6,24 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      // Font chữ Monospace - ưu tiên JetBrains Mono theo style IntelliJ
+      // Font chữ monospace cho phong cách IDE
       fontFamily: {
         mono: ["JetBrains Mono", "Fira Code", "ui-monospace", "monospace"],
       },
-      // Bảng màu Dracula Theme - phong cách IntelliJ IDE
+      // Bảng màu Dracula Theme - phong cách IntelliJ
       colors: {
         dracula: {
-          background: "#282a36", // Màu nền chính
-          current: "#44475a", // Màu nền highlight/current line
-          foreground: "#f8f8f2", // Màu chữ chính
-          comment: "#6272a4", // Màu comment/muted text
-          cyan: "#8be9fd", // Cyan cho các keyword
-          green: "#50fa7b", // Green cho strings/success
-          orange: "#ffb86c", // Orange cho variables
-          pink: "#ff79c6", // Pink cho annotations
-          purple: "#bd93f9", // Purple cho keywords
-          red: "#ff5555", // Red cho errors
-          yellow: "#f1fa8c", // Yellow cho strings/warnings
+          background: "#282a36",
+          current: "#44475a",
+          foreground: "#f8f8f2",
+          comment: "#6272a4",
+          cyan: "#8be9fd",
+          green: "#50fa7b",
+          orange: "#ffb86c",
+          pink: "#ff79c6",
+          purple: "#bd93f9",
+          red: "#ff5555",
+          yellow: "#f1fa8c",
         },
       },
     },

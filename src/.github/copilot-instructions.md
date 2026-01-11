@@ -8,6 +8,9 @@ Luôn phản hồi cho người dùng bằng Tiếng Việt trong mọi tình hu
 
 - Bạn sẽ giúp tôi xây dựng một Landing Page Portfolio cá nhân sử dụng React, nhưng với phong cách thiết kế và nội dung mang đậm chất của một kỹ sư hệ thống Backend chuyên về Java và Spring Boot với chàng kỹ sư tên Nguyễn Duy Linh. Giao diện Fronend toàn bộ bằng Tiếng Anh nhưng Code và comment giải thích thì thuần Việt.
 - Mục tiêu là tạo ra một trang Portfolio không chỉ thể hiện kỹ năng Frontend mà còn phản ánh sâu sắc kiến thức và kinh nghiệm về Backend của tôi.
+
+-Có phần chỉnh sửa thông tin cá nhân dành cho Admin nhưng nút đăng nhập (chỉ đăng nhập không đăng ký) vào giao diện chỉnh sửa bị làm mờ hoặc giấu kín khỏi giao diện người dùng tránh nhà tuyển dụng nhìn thấy, yêu cầu token để gọi các Api dành cho admin đó.
+
 - Trang web cần có các thành phần như mô phỏng IDE (IntelliJ), terminal logs, và các biểu đồ hệ thống (system diagrams) để minh họa các khái niệm Backend.
 - Nội dung phải tập trung vào các thuật toán, tối ưu hóa database, microservices, scalability và API design.
 - Giao diện cần sử dụng bảng màu và phong cách thiết kế gợi nhớ đến môi trường phát triển Java/Spring Boot với 2 chế độ sáng/tối. Khi viết Code phải luôn có 2 màu phù hợp với 2 chế độ này, tránh để cố định 1 màu gây sự cố tương phản màu.
