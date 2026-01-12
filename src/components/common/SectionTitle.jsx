@@ -1,16 +1,10 @@
-import { motion } from "framer-motion";
-
 // ========================================
 // COMPONENT: SectionTitle - Tiêu đề cho mỗi section
 // Thiết kế theo phong cách comment Java
+// Sử dụng AOS cho scroll animation
 // ========================================
 const SectionTitle = ({ title, subtitle, className = "" }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5 }}
-    className={`text-center mb-12 ${className}`}>
+  <div data-aos="fade-up" data-aos-duration="600" className={`text-center mb-12 ${className}`}>
     {/* Comment style như trong Java */}
     <p className="text-gray-500 dark:text-dracula-comment font-mono text-sm mb-2">
       {"// "}
@@ -21,7 +15,7 @@ const SectionTitle = ({ title, subtitle, className = "" }) => (
       <span className="text-orange-500 dark:text-orange-400">()</span>
       <span className="text-gray-500 dark:text-dracula-comment">;</span>
     </h2>
-  </motion.div>
+  </div>
 );
 
 export default SectionTitle;

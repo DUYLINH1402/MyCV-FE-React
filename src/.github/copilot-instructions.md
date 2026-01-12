@@ -68,6 +68,44 @@ Framer Motion: Sử dụng Framer Motion cho các chuyển động xuất hiện
 
 Clean Component Structure: Chia nhỏ giao diện thành các Component nguyên tử (Button, CodeBlock, Section) để dễ quản lý.
 
+6. Animation Guidelines (AOS - Animate On Scroll)
+   Thư viện chính: Sử dụng AOS (Animate On Scroll) cho TẤT CẢ hiệu ứng scroll animation thay vì Framer Motion whileInView.
+
+   Cấu hình AOS mặc định (đã khởi tạo trong App.jsx):
+
+   - duration: 800ms
+   - easing: "ease-out-cubic"
+   - once: false (animation lặp lại khi scroll)
+   - mirror: true (animation khi scroll ngược)
+   - offset: 100px
+
+   Các hiệu ứng AOS thường dùng:
+
+   - `data-aos="fade-up"` - Bay lên từ dưới (dùng cho tiêu đề, nội dung chính)
+   - `data-aos="fade-right"` - Bay từ trái sang (dùng cho cột trái)
+   - `data-aos="fade-left"` - Bay từ phải sang (dùng cho cột phải)
+   - `data-aos="zoom-in"` - Phóng to từ nhỏ (dùng cho buttons, cards nổi bật)
+   - `data-aos="flip-up"` - Lật lên (dùng cho cards đặc biệt)
+
+   Thuộc tính bổ sung:
+
+   - `data-aos-delay="100"` - Delay animation (ms), tăng dần cho stagger effect
+   - `data-aos-duration="600"` - Tùy chỉnh thời gian riêng cho element
+   - `data-aos-offset="200"` - Khoảng cách trigger riêng
+
+   Quy tắc khi tạo Section/Component mới:
+
+   1. Section container: Thêm `data-aos="fade-up"` cho tiêu đề (SectionTitle)
+   2. Layout 2 cột: Cột trái `fade-right`, cột phải `fade-left`
+   3. Danh sách items: Sử dụng `data-aos-delay={index * 100}` cho stagger effect
+   4. Buttons/CTAs: Sử dụng `zoom-in` để thu hút sự chú ý
+   5. Cards: Sử dụng `fade-up` hoặc `zoom-in` với delay tăng dần
+
+   Lưu ý quan trọng:
+
+   - Framer Motion vẫn dùng cho: hover effects, floating animation, interactive animations
+   - AOS dùng cho: scroll-triggered animations (xuất hiện khi cuộn trang)
+
 ## Hướng dẫn cho Copilot
 
 - Không dùng các emoji mà phải dùng icon dựa trên thư viện có sẵn để đồng bộ

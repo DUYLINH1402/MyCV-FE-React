@@ -1,10 +1,18 @@
-import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
-import { Mail, FolderGit2, Coffee, Database, Server, Layers, Github, Linkedin } from "lucide-react";
+import {
+  Mail,
+  FolderGit2,
+  Coffee,
+  Database,
+  Server,
+  Layers,
+  Github,
+  Linkedin,
+  Cloud,
+} from "lucide-react";
 import { Button, Badge } from "../components";
-import { IntelliJMockup, SpringBootTerminal } from "../components";
+import { IntelliJMockup } from "../components";
 import { useProfile } from "../context";
-import Spinner from "../components/common/Spinner";
 
 // ========================================
 // SECTION: Hero - Phần giới thiệu đầu tiên của trang
@@ -33,17 +41,13 @@ const Hero = () => {
       id="home"
       className="max-w-7xl mx-auto px-6 pt-32 pb-16 min-h-screen flex flex-col lg:flex-row items-center justify-between gap-12 relative z-40">
       {/* --- CỘT BÊN TRÁI: Thông tin cá nhân --- */}
-      <motion.div
-        initial={{ opacity: 0, x: -80 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{
-          duration: 1,
-          delay: 3.5,
-          ease: [0.25, 0.46, 0.45, 0.94],
-        }}
+      <div
+        data-aos="fade-right"
+        data-aos-duration="1000"
+        data-aos-delay="300"
         className="flex-1 text-center lg:text-left space-y-8">
         {/* Ảnh đại diện với viền gradient - Lấy từ API */}
-        <div className="relative inline-block">
+        <div className="relative inline-block" data-aos="zoom-in" data-aos-delay="400">
           <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-purple-600 dark:to-dracula-purple rounded-full blur opacity-75 animate-pulse"></div>
           <img
             src={profile?.avatarUrl}
@@ -53,16 +57,18 @@ const Hero = () => {
         </div>
 
         <div className="space-y-4">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
+          <h2
+            data-aos="fade-up"
+            data-aos-delay="500"
             className="text-xl font-medium text-orange-500 dark:text-orange-400">
             // Hello World, I'm
-          </motion.h2>
+          </h2>
 
           {/* Hiệu ứng chữ đánh máy - Nội dung Backend Engineer */}
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+          <h1
+            className="text-4xl md:text-5xl font-bold tracking-tight mb-4"
+            data-aos="fade-up"
+            data-aos-delay="600">
             <TypeAnimation
               key={profile?.fullName}
               sequence={[
@@ -81,22 +87,32 @@ const Hero = () => {
           </h1>
 
           {/* Bio từ API */}
-          <p className="text-lg text-gray-500 dark:text-dracula-comment max-w-lg mx-auto lg:mx-0 leading-relaxed">
+          <p
+            className="text-lg text-gray-500 dark:text-dracula-comment max-w-lg mx-auto lg:mx-0 leading-relaxed"
+            data-aos="fade-up"
+            data-aos-delay="700">
             {profile?.professionalSummary ||
               "Backend is more than APIs — it's the security, data, performance, and scalability of the entire system."}
           </p>
         </div>
 
         {/* Tech Stack Badges */}
-        <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+        <div
+          className="flex flex-wrap gap-3 justify-center lg:justify-start"
+          data-aos="fade-up"
+          data-aos-delay="800">
           <Badge icon={Coffee} label="Java" color="text-orange-500 dark:text-orange-400" />
           <Badge icon={Layers} label="Spring Boot" color="text-green-600 dark:text-dracula-green" />
-          <Badge icon={Database} label="PostgreSQL" color="text-cyan-600 dark:text-dracula-cyan" />
+          <Badge icon={Database} label="MySQL" color="text-cyan-600 dark:text-dracula-cyan" />
+          <Badge icon={Cloud} label="AWS" color="text-amber-500 dark:text-yellow-400" />
           <Badge icon={Server} label="Docker" color="text-purple-600 dark:text-dracula-purple" />
         </div>
 
         {/* Các nút hành động - Email từ API */}
-        <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+        <div
+          className="flex flex-wrap gap-4 justify-center lg:justify-start"
+          data-aos="fade-up"
+          data-aos-delay="900">
           <Button text="Contact Me" primary icon={Mail} href={`mailto:${profile?.email}`} />
           <Button text="View Projects" icon={FolderGit2} href="#projects" />
           {profile?.githubUrl && (
@@ -106,31 +122,18 @@ const Hero = () => {
             <Button text="LinkedIn" icon={Linkedin} href={profile.linkedinUrl} target="_blank" />
           )}
         </div>
-      </motion.div>
+      </div>
 
       {/* --- CỘT BÊN PHẢI: IDE Mockup và Terminal --- */}
-      <motion.div
-        initial={{ opacity: 0, x: 80 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{
-          duration: 1,
-          delay: 3.5,
-          ease: [0.25, 0.46, 0.45, 0.94],
-        }}
+      <div
+        data-aos="fade-left"
+        data-aos-duration="1000"
+        data-aos-delay="300"
         className="flex-1 w-full max-w-xl space-y-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}>
+        <div data-aos="fade-up" data-aos-delay="600">
           <IntelliJMockup />
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.8 }}>
-          <SpringBootTerminal />
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 };

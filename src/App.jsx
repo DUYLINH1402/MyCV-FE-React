@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Lenis from "lenis";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { Header, Footer, ConsoleLogsStream, IntroScreen, LightRays } from "./components";
 import { Hero, About, Skills, Projects } from "./sections";
 import SystemArchitecture from "./components/ui/SystemArchitecture";
@@ -11,6 +13,14 @@ import { ProfileProvider } from "./context";
 // Sử dụng ProfileProvider để chia sẻ dữ liệu profile từ API
 // ========================================
 function App() {
+  // Effect: Tự động cuộn lên đầu trang khi reload/mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // Đảm bảo scroll reset ngay cả với history scroll restoration
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+  }, []);
   // State để kiểm tra đã qua màn hình intro chưa
   const [showIntro, setShowIntro] = useState(true);
   // State để lưu vị trí chuột cho hiệu ứng spotlight
@@ -42,7 +52,7 @@ function App() {
     if (showIntro) return;
 
     const lenis = new Lenis({
-      duration: 1.5, // Thời gian scroll (giây) - càng cao càng chậm
+      duration: 0.5, // Thời gian scroll (giây) - càng cao càng chậm
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing mượt mà
       orientation: "vertical", // Hướng scroll
       smoothWheel: true, // Smooth scroll với lăn chuột
@@ -61,6 +71,30 @@ function App() {
     // Cleanup khi component unmount
     return () => {
       lenis.destroy();
+    };
+  }, [showIntro]);
+
+  // Effect: Khởi tạo AOS (Animate On Scroll) - tạo hiệu ứng xuất hiện khi cuộn trang
+  useEffect(() => {
+    // Chỉ khởi tạo AOS sau khi intro screen kết thúc
+    if (showIntro) return;
+
+    AOS.init({
+      duration: 800, // Thời gian animation (ms)
+      easing: "ease-out-cubic", // Easing mượt mà
+      once: false, // false = animation lặp lại khi scroll lên/xuống
+      mirror: true, // Cho phép animation khi scroll ngược lên
+      offset: 100, // Khoảng cách trigger (px)
+      delay: 0, // Delay mặc định
+      anchorPlacement: "top-bottom", // Vị trí anchor
+    });
+
+    // Refresh AOS khi DOM thay đổi
+    AOS.refresh();
+
+    // Cleanup
+    return () => {
+      // AOS không có destroy method, chỉ cần refresh
     };
   }, [showIntro]);
 
@@ -119,7 +153,10 @@ function App() {
           <About />
 
           {/* System Architecture Section - Kiến trúc hệ thống */}
-          <SystemArchitecture />
+          {/* Ẩn trên mobile vì sơ đồ quá nhỏ, chỉ hiển thị từ màn hình lg trở lên */}
+          <div className="hidden lg:block">
+            <SystemArchitecture />
+          </div>
 
           {/* Skills Section - Kỹ năng chuyên môn */}
           <Skills />

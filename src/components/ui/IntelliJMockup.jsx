@@ -97,7 +97,7 @@ const IntelliJMockup = ({
             <span className="text-green-600 dark:text-dracula-green">of</span>(
             <span className="text-amber-600 dark:text-dracula-yellow">"Java"</span>,{" "}
             <span className="text-amber-600 dark:text-dracula-yellow">"Spring Boot"</span>,{" "}
-            <span className="text-amber-600 dark:text-dracula-yellow">"Docker"</span>))
+            <span className="text-amber-600 dark:text-dracula-yellow">"AWS"</span>))
           </div>
           <div className="pl-16">.build()</div>
           <div className="pl-8">);</div>

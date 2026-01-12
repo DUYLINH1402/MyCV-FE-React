@@ -1,179 +1,134 @@
-import { motion } from "framer-motion";
-import { ExternalLink, Github, Database, Server, Shield, Workflow } from "lucide-react";
-import { SectionTitle, Button, DatabaseSchema } from "../components";
+import { useState, useEffect } from "react";
+import { Github, Loader2, AlertCircle, Code2 } from "lucide-react";
+import { SectionTitle, Button, DatabaseSchema, FeaturedProjectCard, Spinner } from "../components";
+import { getProjects } from "../services";
 
 // ========================================
 // SECTION: Projects - Hiển thị các dự án đã thực hiện
-// Mỗi project card hiển thị thông tin chi tiết và metrics
+// Layout Zig-Zag (Featured Layout) cho các dự án tâm đắc nhất
+// Chi tiết project được mở rộng inline (không dùng Modal)
 // ========================================
 const Projects = () => {
-  // Danh sách các dự án
-  const projects = [
-    {
-      title: "E-Commerce Microservices",
-      description:
-        "Hệ thống thương mại điện tử sử dụng kiến trúc microservices với Spring Boot, bao gồm các service: User, Product, Order, Payment, Notification.",
-      techStack: ["Spring Boot", "PostgreSQL", "Redis", "Kafka", "Docker"],
-      metrics: [
-        { label: "Services", value: "8" },
-        { label: "API Endpoints", value: "45+" },
-        { label: "Concurrent Users", value: "10k+" },
-      ],
-      icon: Server,
-      color: "from-orange-500 to-dracula-pink",
-      github: "#",
-      demo: "#",
-    },
-    {
-      title: "Banking Transaction API",
-      description:
-        "REST API xử lý giao dịch ngân hàng với tính năng bảo mật cao, transaction management, và audit logging. Đạt 99.9% uptime.",
-      techStack: ["Spring Boot", "Spring Security", "MySQL", "JWT", "AOP"],
-      metrics: [
-        { label: "Transactions/day", value: "50k+" },
-        { label: "Response Time", value: "<100ms" },
-        { label: "Uptime", value: "99.9%" },
-      ],
-      icon: Shield,
-      color: "from-dracula-green to-dracula-cyan",
-      github: "#",
-      demo: "#",
-    },
-    {
-      title: "Real-time Chat System",
-      description:
-        "Hệ thống chat realtime sử dụng WebSocket và STOMP protocol, hỗ trợ group chat, file sharing, và message persistence.",
-      techStack: ["Spring WebSocket", "STOMP", "MongoDB", "Redis Pub/Sub"],
-      metrics: [
-        { label: "Active Connections", value: "5k+" },
-        { label: "Messages/min", value: "10k" },
-        { label: "Latency", value: "<50ms" },
-      ],
-      icon: Workflow,
-      color: "from-dracula-purple to-dracula-pink",
-      github: "#",
-      demo: "#",
-    },
-    {
-      title: "Inventory Management",
-      description:
-        "Hệ thống quản lý kho hàng với tính năng tracking real-time, automated alerts, và reporting dashboard. Tích hợp với ERP systems.",
-      techStack: ["Spring Boot", "PostgreSQL", "Elasticsearch", "Flyway"],
-      metrics: [
-        { label: "Products Tracked", value: "100k+" },
-        { label: "Daily Sync", value: "500MB" },
-        { label: "Search Time", value: "<10ms" },
-      ],
-      icon: Database,
-      color: "from-dracula-cyan to-dracula-green",
-      github: "#",
-      demo: "#",
-    },
-  ];
+  // State quản lý dữ liệu projects từ API
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch projects từ API khi component mount
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setLoading(true);
+        const data = await getProjects();
+        // Sắp xếp theo displayOrder
+        const sortedProjects = data.sort((a, b) => a.displayOrder - b.displayOrder);
+        setProjects(sortedProjects);
+        setError(null);
+      } catch (err) {
+        console.error("[ERROR] Failed to load projects:", err);
+        setError("Failed to load projects. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  // Render loading state
+  if (loading) {
+    return (
+      <section id="projects" className="py-20 relative z-40">
+        <div className="max-w-7xl mx-auto px-6">
+          <SectionTitle title="getProjects" subtitle="Things I've built" />
+          <div className="flex flex-col items-center justify-center py-20">
+            <Spinner size="lg" />
+            <p className="mt-4 text-gray-500 dark:text-dracula-comment font-mono text-sm">
+              [INFO] Loading projects from database...
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Render error state
+  if (error) {
+    return (
+      <section id="projects" className="py-20 relative z-40">
+        <div className="max-w-7xl mx-auto px-6">
+          <SectionTitle title="getProjects" subtitle="Things I've built" />
+          <div className="flex flex-col items-center justify-center py-20">
+            <div className="p-4 bg-red-500/10 rounded-full mb-4">
+              <AlertCircle size={32} className="text-red-500" />
+            </div>
+            <p className="text-red-500 dark:text-dracula-red font-mono text-sm">{error}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="projects" className="py-20 relative z-40">
       <div className="max-w-7xl mx-auto px-6">
         <SectionTitle title="getProjects" subtitle="Things I've built" />
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        {/* Terminal-style intro */}
+        <div
+          data-aos="fade-up"
+          data-aos-duration="600"
+          className="mb-12 p-4 bg-gray-900 dark:bg-dracula-current rounded-lg font-mono text-sm border border-gray-700 dark:border-dracula-comment/50">
+          <div className="flex items-center gap-2 text-gray-400 mb-2">
+            <Code2 size={16} className="text-orange-500" />
+            <span className="text-dracula-green">projectRepository</span>
+            <span className="text-gray-500">.</span>
+            <span className="text-dracula-cyan">findAllByFeatured</span>
+            <span className="text-gray-500">(</span>
+            <span className="text-dracula-orange">true</span>
+            <span className="text-gray-500">)</span>
+          </div>
+          <p className="text-dracula-comment">
+            // Fetched {projects.length} featured project{projects.length > 1 ? "s" : ""} from API
+          </p>
+        </div>
+
+        {/* ========== Featured Projects - Layout Zig-Zag ========== */}
+        {/* Chi tiết được mở rộng inline khi click "Read Case Study" */}
+        <div className="space-y-8">
           {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="group bg-gray-100 dark:bg-dracula-current rounded-lg overflow-hidden border border-gray-300 dark:border-dracula-comment hover:border-orange-400/50 transition-all duration-300">
-              {/* Project Header với gradient */}
-              <div className={`h-2 bg-gradient-to-r ${project.color}`}></div>
-
-              <div className="p-6">
-                {/* Title và Icon */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded-lg bg-gradient-to-r ${project.color}`}>
-                      <project.icon size={20} className="text-white" />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-dracula-foreground">
-                      {project.title}
-                    </h3>
-                  </div>
-                </div>
-
-                {/* Description */}
-                <p className="text-gray-500 dark:text-dracula-comment text-sm leading-relaxed mb-4">
-                  {project.description}
-                </p>
-
-                {/* Metrics */}
-                <div className="grid grid-cols-3 gap-2 mb-4">
-                  {project.metrics.map((metric) => (
-                    <div
-                      key={metric.label}
-                      className="bg-white dark:bg-dracula-background rounded-lg p-2 text-center">
-                      <p className="text-green-600 dark:text-dracula-green font-bold text-lg">
-                        {metric.value}
-                      </p>
-                      <p className="text-gray-500 dark:text-dracula-comment text-xs">
-                        {metric.label}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-1 bg-white dark:bg-dracula-background text-gray-900 dark:text-dracula-foreground text-xs font-mono rounded">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-3 pt-4 border-t border-gray-300 dark:border-dracula-comment">
-                  <a
-                    href={project.github}
-                    className="flex items-center gap-2 text-gray-500 dark:text-dracula-comment hover:text-gray-900 dark:hover:text-dracula-foreground transition-colors text-sm">
-                    <Github size={16} />
-                    <span>Source Code</span>
-                  </a>
-                  <a
-                    href={project.demo}
-                    className="flex items-center gap-2 text-gray-500 dark:text-dracula-comment hover:text-orange-500 dark:hover:text-orange-400 transition-colors text-sm">
-                    <ExternalLink size={16} />
-                    <span>Live Demo</span>
-                  </a>
-                </div>
-              </div>
-            </motion.div>
+            <FeaturedProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
 
+        {/* Thông báo nếu chưa có projects */}
+        {projects.length === 0 && !loading && (
+          <div data-aos="fade-up" className="text-center py-20">
+            <div className="p-4 bg-gray-100 dark:bg-dracula-current rounded-full inline-block mb-4">
+              <Code2 size={32} className="text-gray-400 dark:text-dracula-comment" />
+            </div>
+            <p className="text-gray-500 dark:text-dracula-comment font-mono">
+              // No projects found. Check back later!
+            </p>
+          </div>
+        )}
+
         {/* Database Schema Animation */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-12">
+        <div data-aos="fade-up" data-aos-duration="800" className="mt-16">
           <p className="text-center text-gray-500 dark:text-dracula-comment font-mono text-sm mb-6">
             // Hover to see data flow relationships
           </p>
           <DatabaseSchema className="max-w-3xl mx-auto" />
-        </motion.div>
+        </div>
 
         {/* View More Button */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center mt-12">
-          <Button text="View All Projects" icon={Github} href="https://github.com/duylinh" />
-        </motion.div>
+        <div data-aos="zoom-in" data-aos-duration="600" className="text-center mt-12">
+          <Button
+            text="View All Projects on GitHub"
+            icon={Github}
+            href="https://github.com/duylinh"
+          />
+        </div>
       </div>
     </section>
   );

@@ -2,6 +2,7 @@ import { Coffee, Github, Linkedin, Mail } from "lucide-react";
 
 // ========================================
 // COMPONENT: Footer - Chân trang với thông tin liên hệ
+// Sử dụng AOS cho scroll animation
 // ========================================
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -18,7 +19,10 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           {/* Logo & Copyright */}
-          <div className="flex items-center gap-2 text-gray-500 dark:text-dracula-comment font-mono text-sm">
+          <div
+            data-aos="fade-right"
+            data-aos-duration="600"
+            className="flex items-center gap-2 text-gray-500 dark:text-dracula-comment font-mono text-sm">
             <Coffee className="text-orange-500 dark:text-orange-400" size={18} />
             <span>
               © {currentYear} Nguyen Duy Linh
@@ -29,13 +33,15 @@ const Footer = () => {
           </div>
 
           {/* Social Links */}
-          <div className="flex items-center gap-4">
-            {socialLinks.map((link) => (
+          <div data-aos="fade-left" data-aos-duration="600" className="flex items-center gap-4">
+            {socialLinks.map((link, index) => (
               <a
                 key={link.label}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-aos="zoom-in"
+                data-aos-delay={index * 100}
                 className="p-2 rounded-lg bg-white dark:bg-dracula-background hover:bg-gray-200 dark:hover:bg-dracula-comment text-gray-500 dark:text-dracula-comment hover:text-gray-900 dark:hover:text-dracula-foreground transition-colors"
                 aria-label={link.label}>
                 <link.icon size={18} />
@@ -45,8 +51,11 @@ const Footer = () => {
         </div>
 
         {/* Tagline */}
-        <p className="text-center text-gray-500 dark:text-dracula-comment font-mono text-xs mt-4">
-          {"/* "}Built with React, Tailwind CSS & Framer Motion{" */"}
+        <p
+          data-aos="fade-up"
+          data-aos-duration="600"
+          className="text-center text-gray-500 dark:text-dracula-comment font-mono text-xs mt-4">
+          {"/* "}Built with React, Tailwind CSS & AOS Animation{" */"}
         </p>
       </div>
     </footer>

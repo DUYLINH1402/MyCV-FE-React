@@ -482,6 +482,9 @@ function SystemArchitecture() {
           maxZoom={1.5}
           zoomOnScroll={false} // Tắt lăn chuột để zoom
           zoomOnPinch={false} // Tắt zoom bằng trackpad
+          panOnDrag={false} // Tắt kéo để di chuyển sơ đồ - fix lỗi mobile không scroll được
+          panOnScroll={false} // Tắt pan khi scroll
+          // nodesDraggable={false} // Tắt kéo các node
           preventScrolling={false} // Cho phép trang web cuộn mượt mà qua section này
           defaultViewport={{ x: 0, y: 0, zoom: 5 }}>
           {/* Style ghi đè để ẩn logo React Flow */}

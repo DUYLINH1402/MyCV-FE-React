@@ -8,6 +8,7 @@ import { CATEGORY_COLORS } from "./utils/CategoryColor.js";
 // SECTION: Skills - Hiển thị các kỹ năng chuyên môn
 // Thiết kế dạng grid cards đơn giản, dễ đọc
 // Dữ liệu được lấy từ API /api/v1/skills
+// Sử dụng AOS cho scroll animation và Framer Motion cho floating effect
 // ========================================
 // Hàm lấy màu theo category, fallback về OTHER nếu không tìm thấy
 const getCategoryColor = (category) => {
@@ -105,17 +106,17 @@ const Skills = () => {
         <SectionTitle title="getSkills" subtitle="What I bring to the table" />
 
         {/* Skills Grid - Chỉ hiển thị skills không phải FRONTEND */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-5">
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-5">
           {filteredSkills.map((skill, index) => {
             const colors = getCategoryColor(skill.category);
             return (
-              <motion.div key={skill.id} variants={itemVariants} className="relative">
-                {/* Wrapper cho floating animation - tách riêng để không conflict với variants */}
+              <div
+                key={skill.id}
+                data-aos="fade-up"
+                data-aos-delay={index * 50}
+                data-aos-duration="600"
+                className="relative">
+                {/* Wrapper cho floating animation - sử dụng Framer Motion */}
                 <motion.div
                   animate={{
                     y: [
@@ -147,10 +148,10 @@ const Skills = () => {
                     {skill.name}
                   </span>
                 </motion.div>
-              </motion.div>
+              </div>
             );
           })}
-        </motion.div>
+        </div>
 
         {/* Frontend Technologies Logo Loop */}
         <FrontendLogoLoop />

@@ -11,6 +11,10 @@ const Header = ({ isDarkMode, toggleTheme }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // State để kiểm tra scroll
   const [isScrolled, setIsScrolled] = useState(false);
+  // State để ẩn/hiện header khi scroll
+  const [isHidden, setIsHidden] = useState(false);
+  // Lưu vị trí scroll trước đó
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   // Các mục menu navigation
   const navItems = [
@@ -20,14 +24,33 @@ const Header = ({ isDarkMode, toggleTheme }) => {
     { label: "Projects", href: "#projects" },
   ];
 
-  // Effect: Lắng nghe sự kiện scroll để thay đổi style header
+  // Effect: Lắng nghe sự kiện scroll để thay đổi style header và ẩn/hiện
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+
+      // Cập nhật trạng thái scrolled
+      setIsScrolled(currentScrollY > 50);
+
+      // Nếu đang ở đầu trang, luôn hiện header
+      if (currentScrollY < 50) {
+        setIsHidden(false);
+      }
+      // Scroll xuống -> ẩn header
+      else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsHidden(true);
+      }
+      // Scroll lên -> hiện header
+      else if (currentScrollY < lastScrollY) {
+        setIsHidden(false);
+      }
+
+      setLastScrollY(currentScrollY);
     };
-    window.addEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   // Hàm xử lý smooth scroll khi click vào menu item
   const handleNavClick = (e, href) => {
@@ -43,6 +66,8 @@ const Header = ({ isDarkMode, toggleTheme }) => {
   return (
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isHidden ? "-translate-y-full" : "translate-y-0"
+      } ${
         isScrolled
           ? "py-4 bg-white/95 dark:bg-dracula-background/95 backdrop-blur-md shadow-lg shadow-black/10"
           : "py-6 bg-white/80 dark:bg-dracula-background/80 backdrop-blur-sm"

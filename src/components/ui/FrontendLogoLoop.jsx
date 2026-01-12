@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import LogoLoop from "../LogoLoop";
 
 // Import tất cả icons từ thư mục assets/icons
@@ -126,12 +125,7 @@ const renderLogoWithTooltip = (item) => {
 
 const FrontendLogoLoop = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      viewport={{ once: true, margin: "-50px" }}
-      className="mt-16">
+    <div data-aos="fade-up" data-aos-duration="800" className="mt-16">
       {/* Tiêu đề phần Frontend */}
       <div className="flex items-center justify-center gap-3 mb-8">
         {/* Đường kẻ trái */}
@@ -172,7 +166,7 @@ const FrontendLogoLoop = () => {
       <p className="text-center text-sm text-gray-500 dark:text-dracula-comment mt-4 font-mono">
         // Supporting frontend skills for full-stack capabilities
       </p>
-    </motion.div>
+    </div>
   );
 };
 

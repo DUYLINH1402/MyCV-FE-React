@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Code2, Briefcase, GraduationCap, Award } from "lucide-react";
 import { SectionTitle, MagicCard } from "../components";
 import { useProfile } from "../context";
@@ -45,21 +44,12 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 relative z-40">
+    <section id="about" className="py-10 relative z-40">
       <div className="max-w-7xl mx-auto px-6">
         <SectionTitle title="aboutMe" subtitle="Get to know me better" />
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Cột trái: Mô tả chi tiết với MagicCard */}
-          <motion.div
-            initial={{ opacity: 0, x: -80 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{
-              duration: 1,
-              delay: 1,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            className="space-y-6">
+          <div data-aos="fade-right" data-aos-duration="800" className="space-y-6">
             <MagicCard
               enableTilt={true}
               enableParticles={true}
@@ -98,26 +88,16 @@ const About = () => {
                 </>
               </p>
             </MagicCard>
-          </motion.div>
+          </div>
 
           {/* Cột phải: Highlights với MagicCard */}
-          <motion.div
-            initial={{ opacity: 0, x: 80 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{
-              duration: 1,
-              delay: 1,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            className="grid grid-cols-2 gap-4">
+          <div data-aos="fade-left" data-aos-duration="800" className="grid grid-cols-2 gap-4">
             {highlights.map((item, index) => (
-              <motion.div
+              <div
                 key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}>
+                data-aos="zoom-in"
+                data-aos-delay={index * 100}
+                data-aos-duration="600">
                 <MagicCard
                   enableTilt={true}
                   enableParticles={true}
@@ -135,9 +115,9 @@ const About = () => {
                     {item.description}
                   </p>
                 </MagicCard>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
