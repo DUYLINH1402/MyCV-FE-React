@@ -25,18 +25,27 @@ export const ProfileProvider = ({ children }) => {
       try {
         setLoading(true);
         const data = await getProfile();
-        console.log("Profile data fetched:", data);
+        console.log("[ProfileContext] Fetched profile:", data);
         setProfile(data);
         setError(null);
       } catch (err) {
         console.error("[ERROR] ProfileContext - Failed to load profile:", err);
         setError(err.message);
         // Fallback data khi API lỗi (để UI không bị trống)
+        // Cấu trúc theo đúng API response từ backend
         setProfile({
           id: 1,
-          fullName: "Nguyen Duy Linh",
+          fullName: "NGUYEN DUY LINH",
           title: "Backend Engineer",
           bio: "Backend Java Developer with a background in Electrical Engineering. Completed an 12-month Fullstack course and built multiple projects using Java Spring Boot.",
+          professionalSummary:
+            "Backend is more than APIs – it's the security, data, performance, and scalability of the entire system.",
+          experienceYears: "1+",
+          totalProjects: "3+",
+          educationSummary:
+            "Bachelor of Electrical Engineering (TayDo University) & Enterprise Passport for Developer at VTI Academy",
+          certSummary:
+            "JLPT N2 (Japanese Proficiency) & Enterprise Passport for Developer (Standardized by VTI)",
           email: "duylinh63b5@gmail.com",
           githubUrl: "https://github.com/DUYLINH1402",
           linkedinUrl: null,

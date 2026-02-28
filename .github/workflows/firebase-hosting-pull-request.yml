@@ -3,18 +3,39 @@
 
 name: Deploy to Firebase Hosting on PR
 on: pull_request
+
 permissions:
   checks: write
   contents: read
   pull-requests: write
+  deployments: write
+
 jobs:
   build_and_preview:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
+    environment:
+      name: preview
+      url: ${{ steps.deploy.outputs.details_url }}
     steps:
-      - uses: actions/checkout@v4
-      - run: Y
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Firebase Hosting (Preview)
+        id: deploy
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_F2ABD }}

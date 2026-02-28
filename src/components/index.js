@@ -14,3 +14,6 @@ export * from "./ui";
 
 // LightRays - Hiệu ứng tia sáng cho Dark Mode
 export { default as LightRays } from "./LightRays";
+
+// ProtectedRoute - Bảo vệ các route yêu cầu đăng nhập
+export { default as ProtectedRoute } from "./ProtectedRoute";

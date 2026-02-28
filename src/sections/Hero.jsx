@@ -1,3 +1,4 @@
+import { useRef, useCallback } from "react";
 import { TypeAnimation } from "react-type-animation";
 import {
   Mail,
@@ -19,9 +20,38 @@ import { useProfile } from "../context";
 // Bao gồm thông tin cá nhân, tech stack, và code mockup
 // Dữ liệu được lấy từ API thông qua ProfileContext
 // ========================================
-const Hero = () => {
+const Hero = ({ onAvatarTripleClick }) => {
   // Lấy dữ liệu profile từ context
   const { profile, loading } = useProfile();
+
+  // Ref để lưu thông tin click cho chức năng triple click mở Login Modal
+  // Hỗ trợ mobile users không có bàn phím để gõ "login"
+  const clickCountRef = useRef(0);
+  const clickTimerRef = useRef(null);
+
+  // Xử lý triple click vào avatar - 3 lần click trong 2 giây
+  const handleAvatarClick = useCallback(() => {
+    clickCountRef.current += 1;
+
+    // Reset timer mỗi lần click
+    if (clickTimerRef.current) {
+      clearTimeout(clickTimerRef.current);
+    }
+
+    // Nếu đủ 3 lần click -> mở Login Modal
+    if (clickCountRef.current >= 3) {
+      clickCountRef.current = 0;
+      if (onAvatarTripleClick) {
+        onAvatarTripleClick();
+      }
+      return;
+    }
+
+    // Đặt timer 2 giây để reset số lần click
+    clickTimerRef.current = setTimeout(() => {
+      clickCountRef.current = 0;
+    }, 2000);
+  }, [onAvatarTripleClick]);
 
   // Skeleton loading khi đang fetch data
   if (loading) {
@@ -47,7 +77,15 @@ const Hero = () => {
         data-aos-delay="300"
         className="flex-1 text-center lg:text-left space-y-8">
         {/* Ảnh đại diện với viền gradient - Lấy từ API */}
-        <div className="relative inline-block" data-aos="zoom-in" data-aos-delay="400">
+        {/* Triple click (3 lần trong 2s) để mở Login Modal - hỗ trợ mobile */}
+        <div
+          className="relative inline-block cursor-pointer select-none"
+          data-aos="zoom-in"
+          data-aos-delay="400"
+          onClick={handleAvatarClick}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === "Enter" && handleAvatarClick()}>
           <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-purple-600 dark:to-dracula-purple rounded-full blur opacity-75 animate-pulse"></div>
           <img
             src={profile?.avatarUrl}

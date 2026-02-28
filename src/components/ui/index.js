@@ -8,3 +8,4 @@ export { default as IntroScreen } from "./IntroScreen";
 export { default as MagicCard } from "./MagicCard";
 export { default as FrontendLogoLoop } from "./FrontendLogoLoop";
 export { default as FeaturedProjectCard } from "./FeaturedProjectCard";
+export { default as LoginModal } from "./LoginModal";
