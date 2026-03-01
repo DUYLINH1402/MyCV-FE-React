@@ -83,8 +83,8 @@ const About = () => {
               {/* Professional Summary từ API */}
               <p className="text-gray-900 dark:text-dracula-foreground leading-relaxed">
                 <>
-                  To me, Backend is more than just APIs — it's about robust architecture, data
-                  integrity, and proactive security
+                  {profile?.professional_summary ||
+                    "I build production-ready backend systems with real-time processing, optimized database performance, and automated cloud deployments."}
                 </>
               </p>
             </MagicCard>
@@ -111,9 +111,7 @@ const About = () => {
                   <h3 className="text-gray-900 dark:text-dracula-foreground font-bold mb-1">
                     {item.title}
                   </h3>
-                  <p className="text-gray-500 dark:text-dracula-comment text-sm">
-                    {item.description}
-                  </p>
+                  <p className="text-gray-600 dark:text-[#cdcfd7] text-sm">{item.description}</p>
                 </MagicCard>
               </div>
             ))}

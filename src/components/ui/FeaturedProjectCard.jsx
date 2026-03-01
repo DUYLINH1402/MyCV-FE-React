@@ -23,6 +23,9 @@ import {
   Trophy,
   Hash,
   Play,
+  KeyRound,
+  Copy,
+  Check,
 } from "lucide-react";
 
 // ========================================
@@ -55,6 +58,9 @@ const FeaturedProjectCard = ({ project, index }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
 
+  // State cho copy to clipboard
+  const [copiedField, setCopiedField] = useState(null);
+
   // Destructure dữ liệu từ API
   const {
     title,
@@ -76,8 +82,19 @@ const FeaturedProjectCard = ({ project, index }) => {
   const images = gallery && gallery.length > 0 ? gallery : imageUrl ? [imageUrl] : [];
 
   // Lấy dữ liệu từ fullDescription
-  const { overview, keyHighlights, results, challenges, technicalArchitecture } =
+  const { overview, keyHighlights, results, challenges, technicalArchitecture, testAccounts } =
     fullDescription || {};
+
+  // Hàm copy to clipboard
+  const handleCopy = async (text, fieldId) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedField(fieldId);
+      setTimeout(() => setCopiedField(null), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
 
   // Hàm lấy YouTube embed URL
   const getYoutubeEmbedUrl = (url) => {
@@ -323,6 +340,148 @@ const FeaturedProjectCard = ({ project, index }) => {
     [challenges, results]
   );
 
+  // Tab Test Accounts - Hiển thị tài khoản test cho nhà tuyển dụng
+  const TestAccountsPanel = useMemo(
+    () => (
+      <div className="space-y-6">
+        <div className="p-4 bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 rounded-lg mb-6">
+          <p className="text-sm text-blue-700 dark:text-blue-400 flex items-center gap-2">
+            <KeyRound size={16} />
+            <span>
+              These test accounts are provided for recruiters and reviewers to explore the full
+              functionality of the application.
+            </span>
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {testAccounts &&
+            testAccounts.map((account, idx) => {
+              // Xác định màu dựa trên role
+              const isAdmin = account.role?.toLowerCase().includes("admin");
+              const roleColor = isAdmin
+                ? "from-purple-500 to-pink-500"
+                : "from-green-500 to-teal-500";
+              const bgColor = isAdmin
+                ? "bg-purple-50 dark:bg-purple-500/10 border-purple-200 dark:border-purple-500/30"
+                : "bg-green-50 dark:bg-green-500/10 border-green-200 dark:border-green-500/30";
+              const headerBg = isAdmin
+                ? "bg-purple-100 dark:bg-purple-500/20"
+                : "bg-green-100 dark:bg-green-500/20";
+
+              return (
+                <div
+                  key={idx}
+                  className={`rounded-xl border overflow-hidden ${bgColor} transition-all duration-200 hover:shadow-lg`}>
+                  {/* Header với role badge */}
+                  <div className={`${headerBg} px-4 py-3 border-b border-inherit`}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div
+                          className={`w-8 h-8 rounded-full bg-gradient-to-r ${roleColor} flex items-center justify-center`}>
+                          <Users size={14} className="text-white" />
+                        </div>
+                        <span className="font-semibold text-gray-900 dark:text-dracula-foreground">
+                          {account.role}
+                        </span>
+                      </div>
+                      {isAdmin && (
+                        <span className="px-2 py-0.5 bg-purple-500 text-white text-xs font-mono rounded-full">
+                          Full Access
+                        </span>
+                      )}
+                    </div>
+                    {account.description && (
+                      <p className="text-xs text-gray-600 dark:text-dracula-comment mt-2">
+                        {account.description}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Credentials */}
+                  <div className="p-4 space-y-3">
+                    {/* Username */}
+                    <div className="space-y-1">
+                      <label className="text-xs text-gray-500 dark:text-dracula-comment font-mono uppercase tracking-wide">
+                        Username
+                      </label>
+                      <div className="flex items-center gap-2">
+                        <code className="flex-1 px-3 py-2 bg-white dark:bg-dracula-background rounded-lg border border-gray-200 dark:border-dracula-comment/50 font-mono text-sm text-gray-900 dark:text-dracula-foreground">
+                          {account.username}
+                        </code>
+                        <button
+                          onClick={() => handleCopy(account.username, `username-${idx}`)}
+                          className="p-2 hover:bg-gray-200 dark:hover:bg-dracula-current rounded-lg transition-colors"
+                          title="Copy username">
+                          {copiedField === `username-${idx}` ? (
+                            <Check size={16} className="text-green-500" />
+                          ) : (
+                            <Copy size={16} className="text-gray-500 dark:text-dracula-comment" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Password */}
+                    <div className="space-y-1">
+                      <label className="text-xs text-gray-500 dark:text-dracula-comment font-mono uppercase tracking-wide">
+                        Password
+                      </label>
+                      <div className="flex items-center gap-2">
+                        <code className="flex-1 px-3 py-2 bg-white dark:bg-dracula-background rounded-lg border border-gray-200 dark:border-dracula-comment/50 font-mono text-sm text-gray-900 dark:text-dracula-foreground">
+                          {account.password}
+                        </code>
+                        <button
+                          onClick={() => handleCopy(account.password, `password-${idx}`)}
+                          className="p-2 hover:bg-gray-200 dark:hover:bg-dracula-current rounded-lg transition-colors"
+                          title="Copy password">
+                          {copiedField === `password-${idx}` ? (
+                            <Check size={16} className="text-green-500" />
+                          ) : (
+                            <Copy size={16} className="text-gray-500 dark:text-dracula-comment" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Permissions/Notes nếu có */}
+                    {account.permissions && account.permissions.length > 0 && (
+                      <div className="pt-2 border-t border-gray-200 dark:border-dracula-comment/30">
+                        <label className="text-xs text-gray-500 dark:text-dracula-comment font-mono uppercase tracking-wide">
+                          Permissions
+                        </label>
+                        <div className="flex flex-wrap gap-1 mt-2">
+                          {account.permissions.map((perm, permIdx) => (
+                            <span
+                              key={permIdx}
+                              className="px-2 py-0.5 bg-gray-200 dark:bg-dracula-current text-gray-700 dark:text-dracula-foreground text-xs font-mono rounded">
+                              {perm}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+        </div>
+
+        {/* Note về bảo mật */}
+        <div className="p-3 bg-yellow-50 dark:bg-yellow-500/10 border border-yellow-200 dark:border-yellow-500/30 rounded-lg">
+          <p className="text-xs text-yellow-700 dark:text-yellow-400 flex items-center gap-2">
+            <AlertTriangle size={14} />
+            <span>
+              Note: These are demo accounts for testing purposes only. Data may be reset
+              periodically.
+            </span>
+          </p>
+        </div>
+      </div>
+    ),
+    [testAccounts, copiedField]
+  );
+
   // Cấu hình tabs - chỉ hiển thị tabs có nội dung
   const tabs = useMemo(
     () =>
@@ -345,11 +504,18 @@ const FeaturedProjectCard = ({ project, index }) => {
           panel: ResultsPanel,
           show: (challenges && challenges.length > 0) || (results && results.length > 0),
         },
+        {
+          label: "Demo Credentials",
+          icon: KeyRound,
+          panel: TestAccountsPanel,
+          show: testAccounts && testAccounts.length > 0,
+        },
       ].filter((tab) => tab.show),
     [
       OverviewPanel,
       TechnicalPanel,
       ResultsPanel,
+      TestAccountsPanel,
       overview,
       keyHighlights,
       youtubeEmbedUrl,
@@ -357,6 +523,7 @@ const FeaturedProjectCard = ({ project, index }) => {
       technologies,
       challenges,
       results,
+      testAccounts,
     ]
   );
 

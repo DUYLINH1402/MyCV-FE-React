@@ -5,10 +5,7 @@ import { FileCode2 } from "lucide-react";
 // COMPONENT: IntelliJMockup - Giả lập giao diện IntelliJ IDEA
 // Hiển thị code Java/Spring Boot với syntax highlighting
 // ========================================
-const IntelliJMockup = ({
-  fileName = "DeveloperController.java",
-  projectName = "backend-portfolio",
-}) => {
+const IntelliJMockup = ({ fileName = "DeveloperController.java" }) => {
   // Số dòng code để hiển thị line numbers
   const lineNumbers = Array.from({ length: 18 }, (_, i) => i + 1);
 
@@ -28,7 +25,6 @@ const IntelliJMockup = ({
         <div className="flex-1 text-center text-gray-900 dark:text-dracula-foreground text-xs flex items-center justify-center gap-2">
           <FileCode2 size={14} className="text-orange-500 dark:text-orange-400" />
           <span>{fileName}</span>
-          <span className="text-gray-500 dark:text-dracula-comment">— {projectName}</span>
         </div>
       </div>
 

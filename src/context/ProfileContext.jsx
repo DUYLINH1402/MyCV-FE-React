@@ -31,27 +31,6 @@ export const ProfileProvider = ({ children }) => {
       } catch (err) {
         console.error("[ERROR] ProfileContext - Failed to load profile:", err);
         setError(err.message);
-        // Fallback data khi API lỗi (để UI không bị trống)
-        // Cấu trúc theo đúng API response từ backend
-        setProfile({
-          id: 1,
-          fullName: "NGUYEN DUY LINH",
-          title: "Backend Engineer",
-          bio: "Backend Java Developer with a background in Electrical Engineering. Completed an 12-month Fullstack course and built multiple projects using Java Spring Boot.",
-          professionalSummary:
-            "Backend is more than APIs – it's the security, data, performance, and scalability of the entire system.",
-          experienceYears: "1+",
-          totalProjects: "3+",
-          educationSummary:
-            "Bachelor of Electrical Engineering (TayDo University) & Enterprise Passport for Developer at VTI Academy",
-          certSummary:
-            "JLPT N2 (Japanese Proficiency) & Enterprise Passport for Developer (Standardized by VTI)",
-          email: "duylinh63b5@gmail.com",
-          githubUrl: "https://github.com/DUYLINH1402",
-          linkedinUrl: null,
-          avatarUrl:
-            "https://res.cloudinary.com/ddia5yfia/image/upload/v1767447064/3C937529-0AD2-409F-B0BD-BB31B4A5A841_1_201_a_u9dzus.jpg",
-        });
       } finally {
         setLoading(false);
       }

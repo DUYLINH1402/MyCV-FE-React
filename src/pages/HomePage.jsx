@@ -7,16 +7,8 @@ import { useState, useEffect, useRef } from "react";
 import Lenis from "lenis";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import {
-  Header,
-  Footer,
-  ConsoleLogsStream,
-  IntroScreen,
-  LightRays,
-  LoginModal,
-} from "../components";
-import { Hero, About, Skills, Projects } from "../sections";
-import SystemArchitecture from "../components/ui/SystemArchitecture";
+import { Header, Footer, IntroScreen, LightRays, LoginModal } from "../components";
+import { Hero, About, Skills, Projects, Architecture, Contact } from "../sections";
 import { useAuth } from "../context";
 import { useNavigate } from "react-router-dom";
 
@@ -212,18 +204,18 @@ const HomePage = () => {
         <main>
           <Hero onAvatarTripleClick={() => setIsLoginModalOpen(true)} />
           <About />
-          <div className="hidden lg:block">
-            <SystemArchitecture />
-          </div>
           <Skills />
           <Projects />
+          {/* Section Architecture - chỉ hiển thị trên màn hình lớn */}
+          <div className="hidden lg:block">
+            <Architecture />
+          </div>
+          {/* Section Contact */}
+          <Contact />
         </main>
 
         {/* === FOOTER === */}
         <Footer />
-
-        {/* === CONSOLE LOGS STREAM === */}
-        <ConsoleLogsStream />
 
         {/* === LOGIN MODAL === */}
         <LoginModal

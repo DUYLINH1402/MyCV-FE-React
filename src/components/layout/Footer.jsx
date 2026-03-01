@@ -9,8 +9,7 @@ const Footer = () => {
 
   // Các link social media
   const socialLinks = [
-    { icon: Github, href: "https://github.com/duylinh", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com/in/duylinh", label: "LinkedIn" },
+    { icon: Github, href: "https://github.com/DUYLINH1402", label: "GitHub" },
     { icon: Mail, href: "mailto:duylinh63b5@gmail.com", label: "Email" },
   ];
 
@@ -49,14 +48,6 @@ const Footer = () => {
             ))}
           </div>
         </div>
-
-        {/* Tagline */}
-        <p
-          data-aos="fade-up"
-          data-aos-duration="600"
-          className="text-center text-gray-500 dark:text-dracula-comment font-mono text-xs mt-4">
-          {"/* "}Built with React, Tailwind CSS & AOS Animation{" */"}
-        </p>
       </div>
     </footer>
   );

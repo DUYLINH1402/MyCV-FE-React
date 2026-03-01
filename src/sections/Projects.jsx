@@ -79,8 +79,8 @@ const Projects = () => {
           data-aos="fade-up"
           data-aos-duration="600"
           className="mb-12 p-4 bg-gray-900 dark:bg-dracula-current rounded-lg font-mono text-sm border border-gray-700 dark:border-dracula-comment/50">
-          <div className="flex items-center gap-2 text-gray-400 mb-2">
-            <Code2 size={16} className="text-orange-500" />
+          <div className="flex items-center gap-0 text-gray-400 mb-2">
+            <Code2 size={16} className="text-orange-500 mr-2" />
             <span className="text-dracula-green">projectRepository</span>
             <span className="text-gray-500">.</span>
             <span className="text-dracula-cyan">findAllByFeatured</span>
@@ -126,7 +126,7 @@ const Projects = () => {
           <Button
             text="View All Projects on GitHub"
             icon={Github}
-            href="https://github.com/duylinh"
+            href="https://github.com/DUYLINH1402"
           />
         </div>
       </div>

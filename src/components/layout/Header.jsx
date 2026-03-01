@@ -22,6 +22,12 @@ const Header = ({ isDarkMode, toggleTheme }) => {
     { label: "About", href: "#about" },
     { label: "Skills", href: "#skills" },
     { label: "Projects", href: "#projects" },
+    {
+      label: "Architecture",
+      href: "#architecture",
+      note: "FoodieExpress System",
+    },
+    { label: "Contact", href: "#contact" },
   ];
 
   // Effect: Lắng nghe sự kiện scroll để thay đổi style header và ẩn/hiện
@@ -101,6 +107,12 @@ const Header = ({ isDarkMode, toggleTheme }) => {
               <span className="text-gray-500 dark:text-dracula-comment">()</span>
               {/* Underline effect on hover */}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 dark:bg-orange-400 transition-all duration-300 group-hover:w-full"></span>
+              {/* Tooltip hiển thị ghi chú nếu có */}
+              {item.note && (
+                <span className="absolute left-1/2 -translate-x-1/2 top-full mt-2 px-2 py-1 text-xs rounded bg-gray-800 dark:bg-dracula-current text-white dark:text-dracula-foreground whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 shadow-lg">
+                  {item.note}
+                </span>
+              )}
             </motion.a>
           ))}
         </nav>
@@ -153,6 +165,12 @@ const Header = ({ isDarkMode, toggleTheme }) => {
               <span className="text-pink-500 dark:text-dracula-pink">.</span>
               {item.label.toLowerCase()}
               <span className="text-gray-500 dark:text-dracula-comment">()</span>
+              {/* Hiển thị ghi chú trên mobile menu nếu có */}
+              {item.note && (
+                <span className="block text-xs text-gray-400 dark:text-dracula-comment/70 mt-0.5 pl-4">
+                  → {item.note}
+                </span>
+              )}
             </a>
           ))}
         </div>

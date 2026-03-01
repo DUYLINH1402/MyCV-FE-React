@@ -120,7 +120,7 @@ const Hero = ({ onAvatarTripleClick }) => {
               wrapper="span"
               speed={50}
               repeat={Infinity}
-              className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 dark:from-dracula-foreground to-purple-600 dark:to-dracula-purple"
+              className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 dark:from-dracula-foreground to-purple-600 dark:to-dracula-purple whitespace-nowrap"
             />
           </h1>
 

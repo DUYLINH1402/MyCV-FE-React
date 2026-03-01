@@ -133,7 +133,7 @@ const FrontendLogoLoop = () => {
 
         {/* Label */}
         <span className="text-sm font-mono text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">
-          Frontend Technologies
+          Frontend Exposure
         </span>
 
         {/* Đường kẻ phải */}
@@ -161,11 +161,6 @@ const FrontendLogoLoop = () => {
           renderItem={renderLogoWithTooltip}
         />
       </div>
-
-      {/* Mô tả ngắn bên dưới */}
-      <p className="text-center text-sm text-gray-500 dark:text-dracula-comment mt-4 font-mono">
-        // Supporting frontend skills for full-stack capabilities
-      </p>
     </div>
   );
 };
