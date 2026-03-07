@@ -112,23 +112,6 @@ const Projects = () => {
             </p>
           </div>
         )}
-
-        {/* Database Schema Animation */}
-        <div data-aos="fade-up" data-aos-duration="800" className="mt-16">
-          <p className="text-center text-gray-500 dark:text-dracula-comment font-mono text-sm mb-6">
-            // Hover to see data flow relationships
-          </p>
-          <DatabaseSchema className="max-w-3xl mx-auto" />
-        </div>
-
-        {/* View More Button */}
-        <div data-aos="zoom-in" data-aos-duration="600" className="text-center mt-12">
-          <Button
-            text="View All Projects on GitHub"
-            icon={Github}
-            href="https://github.com/DUYLINH1402"
-          />
-        </div>
       </div>
     </section>
   );

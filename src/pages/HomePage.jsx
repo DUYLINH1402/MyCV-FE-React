@@ -7,7 +7,15 @@ import { useState, useEffect, useRef } from "react";
 import Lenis from "lenis";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Header, Footer, IntroScreen, LightRays, LoginModal } from "../components";
+import {
+  Header,
+  Footer,
+  IntroScreen,
+  LightRays,
+  LoginModal,
+  DatabaseSchema,
+  ScrollFloat,
+} from "../components";
 import { Hero, About, Skills, Projects, Architecture, Contact } from "../sections";
 import { useAuth } from "../context";
 import { useNavigate } from "react-router-dom";
@@ -212,10 +220,28 @@ const HomePage = () => {
           </div>
           {/* Section Contact */}
           <Contact />
+          {/* Database Schema Animation */}
+          <div data-aos="fade-up" data-aos-duration="800" className="mt-16">
+            <DatabaseSchema className=" mx-auto mb-2 hidden lg:block" />
+          </div>
         </main>
 
         {/* === FOOTER === */}
         <Footer />
+
+        {/* === THANK YOU SECTION - Hiệu ứng xuất hiện khi scroll đến cuối === */}
+        <section className="min-h-[100vh] flex items-center justify-center ">
+          <ScrollFloat
+            containerClassName="text-center"
+            textClassName="font-sans font-black tracking-tight text-gray-800 dark:text-white !text-[clamp(3rem,10vw,8rem)]"
+            animationDuration={1.2}
+            ease="back.inOut(1.7)"
+            scrollStart="top bottom"
+            scrollEnd="center center"
+            stagger={0.04}>
+            Thank You!
+          </ScrollFloat>
+        </section>
 
         {/* === LOGIN MODAL === */}
         <LoginModal

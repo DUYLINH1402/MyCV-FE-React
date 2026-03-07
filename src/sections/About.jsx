@@ -20,21 +20,22 @@ const About = () => {
   const highlights = [
     {
       icon: Briefcase,
-      title: "Intensive Training",
-      description: `${
-        profile?.experienceYears || "1+"
-      } Years of dedicated learning and building production-grade applications with Java Spring Boot ecosystem.`,
+      title: "Backend Development Training",
+      description: `${profile?.experienceYears || "1+"} year of focused backend development training
+with hands-on Java Spring Boot projects.`,
     },
     {
       icon: Code2,
-      title: `${profile?.totalProjects || "3+"} Scalable Projects`,
+      title: `${profile?.totalProjects || "2+"} Production-Ready Projects`,
       description:
-        "Integrated ZaloPay, OpenAI, WebSockets, and AWS Cloud (EC2, S3, RDS) for real-world business logic",
+        "3+ backend systems built with Java Spring Boot, integrating ZaloPay payments, OpenAI chatbot, WebSockets for real-time messaging, and AWS cloud services (EC2, S3, RDS).",
     },
     {
       icon: GraduationCap,
       title: "Education",
-      description: profile?.educationSummary || "Bachelor's degree in Software Engineering",
+      description:
+        profile?.educationSummary ||
+        "Bachelor of Electrical Engineering – TayDo University. Enterprise Passport for Developers – VTI Academy",
     },
     {
       icon: Award,
@@ -83,8 +84,8 @@ const About = () => {
               {/* Professional Summary từ API */}
               <p className="text-gray-900 dark:text-dracula-foreground leading-relaxed">
                 <>
-                  {profile?.professional_summary ||
-                    "I build production-ready backend systems with real-time processing, optimized database performance, and automated cloud deployments."}
+                  I enjoy designing RESTful APIs, optimizing database performance, and deploying
+                  applications to the cloud using AWS and Docker.
                 </>
               </p>
             </MagicCard>

@@ -10,9 +10,11 @@ import {
   Copy,
   ExternalLink,
   Phone,
+  AlertTriangle,
 } from "lucide-react";
 import { SectionTitle } from "../components/common";
 import { useProfile } from "../context";
+import { submitContact } from "../services";
 
 // ========================================
 // SECTION: Contact - Thông tin liên hệ
@@ -31,7 +33,8 @@ const Contact = () => {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | 'rateLimit' | null
+  const [errorMessage, setErrorMessage] = useState(""); // Lưu thông báo lỗi chi tiết
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
 
@@ -72,22 +75,31 @@ const Contact = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Hàm xử lý submit form
+  // Hàm xử lý submit form - gọi API thực tế
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
+    setErrorMessage("");
 
     try {
-      // TODO: Tích hợp API gửi email thực tế (EmailJS, Formspree, etc.)
-      // Giả lập gửi form thành công sau 1.5s
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Gọi API gửi tin nhắn liên hệ
+      const result = await submitContact(formData);
 
+      console.log("[SUCCESS] Contact message sent:", result.message);
       setSubmitStatus("success");
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
-      console.error("Submit error:", error);
-      setSubmitStatus("error");
+      console.error("[ERROR] Submit contact failed:", error);
+
+      // Kiểm tra nếu là lỗi rate limit (spam protection)
+      if (error.message.includes("quá nhiều") || error.message.includes("rate limit")) {
+        setSubmitStatus("rateLimit");
+        setErrorMessage(error.message);
+      } else {
+        setSubmitStatus("error");
+        setErrorMessage(error.message || "Có lỗi xảy ra. Vui lòng thử lại.");
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -137,7 +149,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="relative py-16 md:py-24 bg-gradient-to-b from-white to-gray-50 dark:from-dracula-current/30 dark:to-dracula-background">
+      className="relative py-16 md:py-24  from-white to-gray-50 dark:from-dracula-current/30 dark:to-dracula-background">
       {/* Container chính */}
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         {/* Tiêu đề Section */}
@@ -145,7 +157,7 @@ const Contact = () => {
           <SectionTitle
             pretitle="// Liên hệ với tôi"
             title=".contact"
-            subtitle="Sẵn sàng kết nối và hợp tác cùng bạn"
+            subtitle="Open to new opportunities"
           />
         </div>
 
@@ -306,7 +318,11 @@ const Contact = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
+                    onInvalid={(e) => e.target.setCustomValidity("Please enter your name")}
+                    onInput={(e) => e.target.setCustomValidity("")}
                     required
+                    minLength={2}
+                    maxLength={100}
                     placeholder='"Your Name"'
                     className="w-full px-4 py-2.5 rounded-lg bg-gray-50 dark:bg-dracula-background border border-gray-200 dark:border-dracula-comment/30 text-gray-800 dark:text-dracula-foreground placeholder:text-gray-400 dark:placeholder:text-dracula-comment/60 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-dracula-orange focus:border-transparent font-mono text-sm transition-all"
                   />
@@ -322,6 +338,14 @@ const Contact = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
+                    onInvalid={(e) => {
+                      if (e.target.validity.valueMissing) {
+                        e.target.setCustomValidity("Please enter your email address");
+                      } else if (e.target.validity.typeMismatch) {
+                        e.target.setCustomValidity("Please enter a valid email address");
+                      }
+                    }}
+                    onInput={(e) => e.target.setCustomValidity("")}
                     required
                     placeholder='"your.email@example.com"'
                     className="w-full px-4 py-2.5 rounded-lg bg-gray-50 dark:bg-dracula-background border border-gray-200 dark:border-dracula-comment/30 text-gray-800 dark:text-dracula-foreground placeholder:text-gray-400 dark:placeholder:text-dracula-comment/60 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-dracula-orange focus:border-transparent font-mono text-sm transition-all"
@@ -338,7 +362,11 @@ const Contact = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
+                    onInvalid={(e) => e.target.setCustomValidity("Please enter a subject")}
+                    onInput={(e) => e.target.setCustomValidity("")}
                     required
+                    minLength={5}
+                    maxLength={200}
                     placeholder='"Job Opportunity / Project Collaboration"'
                     className="w-full px-4 py-2.5 rounded-lg bg-gray-50 dark:bg-dracula-background border border-gray-200 dark:border-dracula-comment/30 text-gray-800 dark:text-dracula-foreground placeholder:text-gray-400 dark:placeholder:text-dracula-comment/60 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-dracula-orange focus:border-transparent font-mono text-sm transition-all"
                   />
@@ -353,7 +381,11 @@ const Contact = () => {
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
+                    onInvalid={(e) => e.target.setCustomValidity("Please enter your message")}
+                    onInput={(e) => e.target.setCustomValidity("")}
                     required
+                    minLength={10}
+                    maxLength={2000}
                     rows={4}
                     placeholder='"Your message here..."'
                     className="w-full px-4 py-2.5 rounded-lg bg-gray-50 dark:bg-dracula-background border border-gray-200 dark:border-dracula-comment/30 text-gray-800 dark:text-dracula-foreground placeholder:text-gray-400 dark:placeholder:text-dracula-comment/60 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-dracula-orange focus:border-transparent font-mono text-sm transition-all resize-none"
@@ -404,7 +436,20 @@ const Contact = () => {
                     className="flex items-center gap-2 p-3 rounded-lg bg-red-50 dark:bg-dracula-red/10 border border-red-200 dark:border-dracula-red/30">
                     <Terminal size={18} className="text-red-500 dark:text-dracula-red" />
                     <span className="text-red-700 dark:text-dracula-red text-sm font-mono">
-                      // Error: Failed to send. Please try again.
+                      // Error: {errorMessage || "Failed to send. Please try again."}
+                    </span>
+                  </motion.div>
+                )}
+
+                {/* Rate limit warning */}
+                {submitStatus === "rateLimit" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-center gap-2 p-3 rounded-lg bg-amber-50 dark:bg-dracula-orange/10 border border-amber-200 dark:border-dracula-orange/30">
+                    <AlertTriangle size={18} className="text-amber-500 dark:text-dracula-orange" />
+                    <span className="text-amber-700 dark:text-dracula-orange text-sm font-mono">
+                      // Warning: {errorMessage || "Too many requests. Please try again later."}
                     </span>
                   </motion.div>
                 )}
