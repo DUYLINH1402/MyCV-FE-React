@@ -1,4 +1,4 @@
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import { TypeAnimation } from "react-type-animation";
 import {
   Mail,
@@ -23,6 +23,16 @@ import { useProfile } from "../context";
 const Hero = ({ onAvatarTripleClick }) => {
   // Lấy dữ liệu profile từ context
   const { profile, loading } = useProfile();
+
+  // Detect mobile để hiển thị text phù hợp
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Ref để lưu thông tin click cho chức năng triple click mở Login Modal
   // Hỗ trợ mobile users không có bàn phím để gõ "login"
@@ -108,13 +118,13 @@ const Hero = ({ onAvatarTripleClick }) => {
             data-aos="fade-up"
             data-aos-delay="600">
             <TypeAnimation
-              key={profile?.fullName}
+              key={`${profile?.fullName}-${isMobile}`}
               sequence={[
+                isMobile ? "Spring Boot" : "Java & Spring Boot",
+                2000,
                 profile?.fullName || "Nguyen Duy Linh",
                 2000,
                 profile?.title || "Backend Engineer",
-                2000,
-                "Java & Spring Boot",
                 2000,
               ]}
               wrapper="span"

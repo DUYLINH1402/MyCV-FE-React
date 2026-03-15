@@ -27,8 +27,9 @@ with hands-on Java Spring Boot projects.`,
     {
       icon: Code2,
       title: `${profile?.totalProjects || "2+"} Production-Ready Projects`,
-      description:
-        "3+ backend systems built with Java Spring Boot, integrating ZaloPay payments, OpenAI chatbot, WebSockets for real-time messaging, and AWS cloud services (EC2, S3, RDS).",
+      description: `${
+        profile?.totalProjects || "2+"
+      } backend systems built with Java Spring Boot, integrating ZaloPay payments, OpenAI chatbot, WebSockets for real-time messaging, and AWS cloud services (EC2, S3, RDS).`,
     },
     {
       icon: GraduationCap,
@@ -107,7 +108,7 @@ with hands-on Java Spring Boot projects.`,
                   enableMagnetism={true}
                   particleCount={8}
                   glowColor="249, 115, 22"
-                  className="h-full bg-gray-100 dark:bg-dracula-current rounded-lg p-5  border border-gray-300 dark:border-dracula-comment cursor-pointer">
+                  className="h-full bg-gray-100 dark:bg-dracula-current rounded-lg p-4  border border-gray-300 dark:border-dracula-comment cursor-pointer">
                   <item.icon className="text-orange-500 dark:text-orange-400 mb-3" size={28} />
                   <h3 className="text-gray-900 dark:text-dracula-foreground font-bold mb-1">
                     {item.title}

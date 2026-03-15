@@ -10,6 +10,15 @@ export default {
       fontFamily: {
         mono: ["JetBrains Mono", "Fira Code", "ui-monospace", "monospace"],
       },
+      fontSize: {
+        sx: "12px",
+        sm: "13px", //cho Mobile
+        md: "14px", //cho Tablet
+        base: "16px", //cho desktop
+        lg: "20px",
+        xl: "24px",
+        xxl: "30px",
+      },
       // Bảng màu Dracula Theme - phong cách IntelliJ
       colors: {
         dracula: {

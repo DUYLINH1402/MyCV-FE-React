@@ -48,8 +48,11 @@ const Skills = () => {
   }, []);
 
   // Lọc bỏ skills có category FRONTEND (FE sẽ hiển thị ở phần riêng)
+  // Sắp xếp theo priority (số nhỏ = ưu tiên cao, hiển thị trước)
   const filteredSkills = useMemo(() => {
-    return skills.filter((skill) => skill.category !== "FRONTEND");
+    return skills
+      .filter((skill) => skill.category !== "FRONTEND")
+      .sort((a, b) => (a.priority ?? Infinity) - (b.priority ?? Infinity));
   }, [skills]);
 
   // Tạo random floating params cho mỗi card (chỉ tính 1 lần khi skills thay đổi)
@@ -137,7 +140,7 @@ const Skills = () => {
                     scale: 1.05,
                     transition: { duration: 0.2 },
                   }}
-                  className={`group relative bg-gray-100 dark:bg-dracula-current/50 rounded-2xl p-8 md:p-10 
+                  className={`group relative bg-gray-100 dark:bg-dracula-current/50 rounded-2xl p-3 md:p-3 
                              border ${colors.border} ${colors.hoverBorder}
                              transition-all duration-300 cursor-pointer
                              flex flex-col items-center justify-center min-h-[120px] md:min-h-[140px] gap-2`}>

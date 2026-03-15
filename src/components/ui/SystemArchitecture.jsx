@@ -47,7 +47,7 @@ const ClientNode = ({ data }) => (
         <p className="text-gray-900 dark:text-dracula-foreground font-semibold text-sm">
           {data.label}
         </p>
-        <p className="text-gray-500 dark:text-dracula-comment text-xs">{data.sublabel}</p>
+        <p className="text-gray-500 dark:text-[#bcd053] text-xs">{data.sublabel}</p>
       </div>
     </div>
     {/* Hiệu ứng pulse */}
@@ -92,7 +92,7 @@ const GatewayNode = ({ data }) => (
         <p className="text-gray-900 dark:text-dracula-foreground font-semibold text-sm">
           {data.label}
         </p>
-        <p className="text-gray-500 dark:text-dracula-comment text-xs">{data.sublabel}</p>
+        <p className="text-gray-500 dark:text-[#bcd053] text-xs">{data.sublabel}</p>
       </div>
     </div>
   </div>
@@ -119,7 +119,7 @@ const SecurityNode = ({ data }) => (
         <p className="text-gray-900 dark:text-dracula-foreground font-semibold text-sm">
           {data.label}
         </p>
-        <p className="text-gray-500 dark:text-dracula-comment text-xs">{data.sublabel}</p>
+        <p className="text-gray-500 dark:text-[#bcd053] text-xs">{data.sublabel}</p>
       </div>
     </div>
   </div>
@@ -158,7 +158,7 @@ const ServiceNode = ({ data }) => (
         <p className="text-gray-900 dark:text-dracula-foreground font-semibold text-sm">
           {data.label}
         </p>
-        <p className="text-gray-500 dark:text-dracula-comment text-xs">{data.sublabel}</p>
+        <p className="text-gray-500 dark:text-[#bcd053] text-xs">{data.sublabel}</p>
       </div>
     </div>
   </div>
@@ -186,7 +186,7 @@ const CacheNode = ({ data }) => (
         <p className="text-gray-900 dark:text-dracula-foreground font-semibold text-sm">
           {data.label}
         </p>
-        <p className="text-gray-500 dark:text-dracula-comment text-xs">{data.sublabel}</p>
+        <p className="text-gray-500 dark:text-[#bcd053] text-xs">{data.sublabel}</p>
       </div>
     </div>
   </div>
@@ -208,7 +208,7 @@ const DatabaseNode = ({ data }) => (
         <p className="text-gray-900 dark:text-dracula-foreground font-semibold text-sm">
           {data.label}
         </p>
-        <p className="text-gray-500 dark:text-dracula-comment text-xs">{data.sublabel}</p>
+        <p className="text-gray-500 dark:text-[#bcd053] text-xs">{data.sublabel}</p>
       </div>
     </div>
   </div>
@@ -230,7 +230,7 @@ const PaymentNode = ({ data }) => (
         <p className="text-gray-900 dark:text-dracula-foreground font-semibold text-sm">
           {data.label}
         </p>
-        <p className="text-gray-500 dark:text-dracula-comment text-xs">{data.sublabel}</p>
+        <p className="text-gray-500 dark:text-[#bcd053] text-xs">{data.sublabel}</p>
       </div>
     </div>
   </div>
@@ -252,7 +252,7 @@ const StorageNode = ({ data }) => (
         <p className="text-gray-900 dark:text-dracula-foreground font-semibold text-sm">
           {data.label}
         </p>
-        <p className="text-gray-500 dark:text-dracula-comment text-xs">{data.sublabel}</p>
+        <p className="text-gray-500 dark:text-[#bcd053] text-xs">{data.sublabel}</p>
       </div>
     </div>
   </div>
@@ -274,7 +274,7 @@ const AINode = ({ data }) => (
         <p className="text-gray-900 dark:text-dracula-foreground font-semibold text-sm">
           {data.label}
         </p>
-        <p className="text-gray-500 dark:text-dracula-comment text-xs">{data.sublabel}</p>
+        <p className="text-gray-500 dark:text-[#bcd053] text-xs">{data.sublabel}</p>
       </div>
     </div>
     {/* Hiệu ứng AI đang hoạt động */}
@@ -302,7 +302,7 @@ const SearchServiceNode = ({ data }) => (
         <p className="text-gray-900 dark:text-dracula-foreground font-semibold text-sm">
           {data.label}
         </p>
-        <p className="text-gray-500 dark:text-dracula-comment text-xs">{data.sublabel}</p>
+        <p className="text-gray-500 dark:text-[#bcd053] text-xs">{data.sublabel}</p>
       </div>
     </div>
   </div>
@@ -329,7 +329,7 @@ const WebSocketNode = ({ data }) => (
         <p className="text-gray-900 dark:text-dracula-foreground font-semibold text-sm">
           {data.label}
         </p>
-        <p className="text-gray-500 dark:text-dracula-comment text-xs">{data.sublabel}</p>
+        <p className="text-gray-500 dark:text-[#bcd053] text-xs">{data.sublabel}</p>
       </div>
     </div>
     {/* Hiệu ứng pulse cho real-time */}
@@ -699,7 +699,7 @@ function SystemArchitecture() {
   return (
     <motion.div ref={containerRef} style={{ opacity }} className="w-full">
       {/* React Flow Container */}
-      <div className="h-[1100px] w-full rounded-xl overflow-hidden ">
+      <div className="system-arch-desktop h-[950px] w-full rounded-xl overflow-hidden ">
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -723,10 +723,14 @@ function SystemArchitecture() {
             .react-flow__attribution {
           display: none !important;
            }
+          .system-arch-desktop .react-flow__pane {
+              top: -70px !important;
+            }
           `}
           </style>
           {/* Controls với style tối */}
           <Controls
+            position="top-left"
             style={{
               border: "1px solid #44475a",
               borderRadius: "8px",

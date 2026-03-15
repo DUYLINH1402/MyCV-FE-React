@@ -56,7 +56,7 @@ const Projects = () => {
   if (error) {
     return (
       <section id="projects" className="py-20 relative z-40">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6 mb-50px">
           <SectionTitle title="getProjects" subtitle="Things I've built" />
           <div className="flex flex-col items-center justify-center py-20">
             <div className="p-4 bg-red-500/10 rounded-full mb-4">

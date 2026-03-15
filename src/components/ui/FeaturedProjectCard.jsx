@@ -26,6 +26,7 @@ import {
   KeyRound,
   Copy,
   Check,
+  FileCode,
 } from "lucide-react";
 
 // ========================================
@@ -769,7 +770,7 @@ const FeaturedProjectCard = ({ project, index }) => {
                     className="flex items-center gap-2 px-3 py-1.5 bg-green-500/10 rounded-full">
                     <CheckCircle2 size={14} className="text-green-600 dark:text-dracula-green" />
                     <span className="text-xs text-green-700 dark:text-dracula-green font-medium">
-                      {result.length > 50 ? result.substring(0, 50) + "..." : result}
+                      {result.length > 50 ? result.substring(0, 70) + "..." : result}
                     </span>
                   </div>
                 ))}
@@ -799,10 +800,12 @@ const FeaturedProjectCard = ({ project, index }) => {
 
         {/* ========================================
             ACTION BUTTONS - Luôn hiển thị ở cuối card
-            3 nút trên 1 hàng: Read Case Study, Source Code, Live Demo/Watch Demo
+            Các nút: Read Case Study, Source Code, Live Demo/Watch Demo, Swagger API Docs
         ======================================== */}
         <div
-          className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-8 pt-6 border-t border-gray-200 dark:border-dracula-comment/30"
+          className={`grid grid-cols-1 gap-3 mt-8 pt-6 border-t border-gray-200 dark:border-dracula-comment/30 ${
+            reviewUrl ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"
+          }`}
           data-aos="fade-up"
           data-aos-delay="200"
           data-aos-duration="600">
@@ -867,6 +870,20 @@ const FeaturedProjectCard = ({ project, index }) => {
               <span>Watch Demo</span>
             </motion.a>
           ) : null}
+
+          {/* Nút Swagger API Docs - Chỉ hiển thị khi reviewUrl có dữ liệu */}
+          {reviewUrl && (
+            <motion.a
+              href={reviewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="flex items-center justify-center gap-2 px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-mono font-medium text-sm rounded-lg transition-all duration-200 shadow-lg shadow-emerald-500/20">
+              <FileCode size={16} />
+              <span>API Docs</span>
+            </motion.a>
+          )}
         </div>
 
         {/* ========================================

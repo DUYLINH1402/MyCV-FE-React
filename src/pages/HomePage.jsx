@@ -14,6 +14,7 @@ import {
   LightRays,
   LoginModal,
   DatabaseSchema,
+  DatabaseSchemaMobile,
   ScrollFloat,
 } from "../components";
 import { Hero, About, Skills, Projects, Architecture, Contact } from "../sections";
@@ -214,15 +215,17 @@ const HomePage = () => {
           <About />
           <Skills />
           <Projects />
-          {/* Section Architecture - chỉ hiển thị trên màn hình lớn */}
-          <div className="hidden lg:block">
-            <Architecture />
-          </div>
+          {/* Section Architecture - responsive cho cả desktop và mobile */}
+          <Architecture />
           {/* Section Contact */}
           <Contact />
-          {/* Database Schema Animation */}
+          {/* Database Schema Animation - Desktop */}
           <div data-aos="fade-up" data-aos-duration="800" className="mt-16">
-            <DatabaseSchema className=" mx-auto mb-2 hidden lg:block" />
+            <DatabaseSchema className="mx-auto mb-2 hidden lg:block" />
+          </div>
+          {/* Database Schema Animation - Mobile */}
+          <div data-aos="fade-up" data-aos-duration="800" className="mt-8 px-2">
+            <DatabaseSchemaMobile className="mx-auto mb-2 block lg:hidden" />
           </div>
         </main>
 
