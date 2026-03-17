@@ -4,7 +4,7 @@
 // ========================================
 
 // Base URL cho API Backend - có thể thay đổi theo môi trường
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api/v1";
+const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL || "http://localhost:8080/api/v1/public";
 
 /**
  * Lấy danh sách skills từ API
@@ -13,7 +13,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api/
  */
 export const getSkills = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/skills`);
+    const response = await fetch(`${API_PUBLIC_URL}/skills`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

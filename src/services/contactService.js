@@ -4,7 +4,7 @@
 // ========================================
 
 // Base URL cho API Backend - có thể thay đổi theo môi trường
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL || "http://localhost:8080/api/v1/public";
 
 /**
  * Gửi tin nhắn liên hệ đến Backend
@@ -19,7 +19,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api"
  */
 export const submitContact = async (contactData) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/contact`, {
+    const response = await fetch(`${API_PUBLIC_URL}/contact`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

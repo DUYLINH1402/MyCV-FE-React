@@ -5,7 +5,8 @@
 // ========================================
 
 // Base URL cho API Backend - có thể thay đổi theo môi trường
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api/v1";
+const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL || "http://localhost:8080/api/v1/public";
+const API_ADMIN_URL = import.meta.env.VITE_API_ADMIN_URL || "http://localhost:8080/api/v1/admin";
 
 /**
  * Lấy danh sách tất cả projects từ API (Public)
@@ -13,8 +14,8 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api/
  */
 export const getProjects = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/projects`);
-    console.log("[INFO] Fetching projects from:", `${API_BASE_URL}/projects`);
+    const response = await fetch(`${API_PUBLIC_URL}/projects`);
+    console.log("[INFO] Fetching projects from:", `${API_PUBLIC_URL}/projects`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -57,8 +58,8 @@ export const getFeaturedProjects = async () => {
  */
 export const getProjectById = async (id) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/projects/${id}`);
-    console.log("[INFO] Fetching project:", `${API_BASE_URL}/projects/${id}`);
+    const response = await fetch(`${API_PUBLIC_URL}/projects/${id}`);
+    console.log("[INFO] Fetching project:", `${API_PUBLIC_URL}/projects/${id}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -86,7 +87,7 @@ export const getProjectById = async (id) => {
 export const createProject = async (projectData, token) => {
   try {
     console.log("[INFO] Creating project:", projectData);
-    const response = await fetch(`${API_BASE_URL}/admin/projects`, {
+    const response = await fetch(`${API_ADMIN_URL}/projects`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -124,7 +125,7 @@ export const createProject = async (projectData, token) => {
 export const updateProject = async (id, projectData, token) => {
   try {
     console.log("[INFO] Updating project:", id, projectData);
-    const response = await fetch(`${API_BASE_URL}/admin/projects/${id}`, {
+    const response = await fetch(`${API_ADMIN_URL}/projects/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -161,7 +162,7 @@ export const updateProject = async (id, projectData, token) => {
 export const deleteProject = async (id, token) => {
   try {
     console.log("[INFO] Deleting project:", id);
-    const response = await fetch(`${API_BASE_URL}/admin/projects/${id}`, {
+    const response = await fetch(`${API_ADMIN_URL}/projects/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

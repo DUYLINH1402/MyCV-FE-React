@@ -4,7 +4,8 @@
 // ========================================
 
 // Base URL cho API Backend - có thể thay đổi theo môi trường
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api/v1";
+const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL || "http://localhost:8080/api/v1/public";
+const API_ADMIN_URL = import.meta.env.VITE_API_ADMIN_URL || "http://localhost:8080/api/v1/admin";
 
 /**
  * Lấy thông tin profile từ API
@@ -12,8 +13,8 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api/
  */
 export const getProfile = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/profile`);
-    console.log("Fetching profile from:", `${API_BASE_URL}/profile`);
+    const response = await fetch(`${API_PUBLIC_URL}/profile`);
+    console.log("Fetching profile from:", `${API_PUBLIC_URL}/profile`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -40,7 +41,7 @@ export const getProfile = async () => {
  */
 export const updateProfile = async (profileData, token) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/profile`, {
+    const response = await fetch(`${API_ADMIN_URL}/profile`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

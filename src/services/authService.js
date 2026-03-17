@@ -4,7 +4,7 @@
 // ========================================
 
 // Base URL cho API - có thể thay đổi theo môi trường
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL || "http://localhost:8080/api/v1/public";
 
 // Key lưu token trong localStorage
 const TOKEN_KEY = "admin_token";
@@ -18,7 +18,7 @@ const TOKEN_EXPIRY_KEY = "admin_token_expiry";
  */
 export const login = async (email, password) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+    const response = await fetch(`${API_PUBLIC_URL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
