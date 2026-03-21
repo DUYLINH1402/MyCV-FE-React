@@ -12,6 +12,7 @@ import {
   User,
   Code2,
   FolderGit2,
+  Briefcase,
   Settings,
   LogOut,
   Menu,
@@ -81,6 +82,13 @@ const AdminDashboard = () => {
       icon: Code2,
       path: "/admin/skills",
       description: "Tech stack",
+    },
+    {
+      id: "experiences",
+      label: "Experiences",
+      icon: Briefcase,
+      path: "/admin/experiences",
+      description: "Work history",
     },
     {
       id: "projects",

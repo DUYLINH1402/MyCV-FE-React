@@ -17,7 +17,7 @@ import {
   DatabaseSchemaMobile,
   ScrollFloat,
 } from "../components";
-import { Hero, About, Skills, Projects, Architecture, Contact } from "../sections";
+import { Hero, About, Skills, Experience, Projects, Architecture, Contact } from "../sections";
 import { useAuth } from "../context";
 import { useNavigate } from "react-router-dom";
 
@@ -214,6 +214,7 @@ const HomePage = () => {
           <Hero onAvatarTripleClick={() => setIsLoginModalOpen(true)} />
           <About />
           <Skills />
+          <Experience />
           <Projects />
           {/* Section Architecture - responsive cho cả desktop và mobile */}
           <Architecture />

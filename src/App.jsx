@@ -13,6 +13,7 @@ import {
   DashboardOverview,
   ProfileManagement,
   SkillsManagement,
+  ExperiencesManagement,
   ProjectsManagement,
 } from "./pages";
 
@@ -48,6 +49,9 @@ function App() {
 
               {/* Skills Management */}
               <Route path="skills" element={<SkillsManagement />} />
+
+              {/* Experiences Management */}
+              <Route path="experiences" element={<ExperiencesManagement />} />
 
               {/* Projects Management */}
               <Route path="projects" element={<ProjectsManagement />} />
