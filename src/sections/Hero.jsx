@@ -2,13 +2,13 @@ import { useRef, useCallback, useState, useEffect } from "react";
 import { TypeAnimation } from "react-type-animation";
 import {
   Mail,
+  Download,
   FolderGit2,
   Coffee,
   Database,
   Server,
   Layers,
   Github,
-  Linkedin,
   Cloud,
 } from "lucide-react";
 import { Button, Badge } from "../components";
@@ -156,18 +156,24 @@ const Hero = ({ onAvatarTripleClick }) => {
           <Badge icon={Server} label="Docker" color="text-purple-600 dark:text-dracula-purple" />
         </div>
 
-        {/* Các nút hành động - Email từ API */}
+        {/* Các nút hành động - Contact, Projects, GitHub, Download CV */}
         <div
           className="flex flex-wrap gap-4 justify-center lg:justify-start"
           data-aos="fade-up"
           data-aos-delay="900">
-          <Button text="Contact Me" primary icon={Mail} href={`mailto:${profile?.email}`} />
-          <Button text="View Projects" icon={FolderGit2} href="#projects" />
+          {profile?.cvUrl && (
+            <Button
+              primary
+              text="Download CV"
+              icon={Download}
+              href={profile.cvUrl}
+              target="_blank"
+              download
+            />
+          )}
+          <Button text="Contact Me" icon={Mail} href={`mailto:${profile?.email}`} />
           {profile?.githubUrl && (
             <Button text="GitHub" icon={Github} href={profile.githubUrl} target="_blank" />
-          )}
-          {profile?.linkedinUrl && (
-            <Button text="LinkedIn" icon={Linkedin} href={profile.linkedinUrl} target="_blank" />
           )}
         </div>
       </div>

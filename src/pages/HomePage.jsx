@@ -16,6 +16,7 @@ import {
   DatabaseSchema,
   DatabaseSchemaMobile,
   ScrollFloat,
+  ScrollToTop,
 } from "../components";
 import { Hero, About, Skills, Experience, Projects, Architecture, Contact } from "../sections";
 import { useAuth } from "../context";
@@ -253,6 +254,9 @@ const HomePage = () => {
           onClose={() => setIsLoginModalOpen(false)}
           onLoginSuccess={handleLoginSuccess}
         />
+
+        {/* === SCROLL TO TOP BUTTON === */}
+        <ScrollToTop />
       </div>
     </>
   );

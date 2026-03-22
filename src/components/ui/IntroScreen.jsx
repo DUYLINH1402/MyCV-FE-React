@@ -59,13 +59,15 @@ const IntroScreen = ({ onComplete }) => {
             )}
           </div>
 
-          {/* Loading indicator nhỏ ở dưới */}
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: "100px" }}
-            transition={{ duration: 3, ease: "linear" }}
-            className="absolute bottom-20 h-[2px] bg-gradient-to-r from-orange-500 to-purple-600 dark:to-dracula-purple"
-          />
+          {/* Loading indicator nhỏ ở dưới với border tổng thể - tràn từ giữa ra 2 bên */}
+          <div className="absolute bottom-20 w-[120px] h-[6px] rounded-full border border-gray-300 dark:border-dracula-comment/50 overflow-hidden bg-gray-100 dark:bg-dracula-current">
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 3, ease: "linear" }}
+              className="h-full w-full origin-center bg-gradient-to-r from-purple-600 via-orange-500 to-purple-600 dark:from-dracula-purple dark:via-orange-500 dark:to-dracula-purple rounded-full"
+            />
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

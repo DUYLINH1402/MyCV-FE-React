@@ -6,3 +6,4 @@ export { default as Badge } from "./Badge";
 export { default as SectionTitle } from "./SectionTitle";
 export { default as Spinner } from "./Spinner";
 export { default as ScrollFloat } from "./ScrollFloat";
+export { default as ScrollToTop } from "./ScrollToTop";

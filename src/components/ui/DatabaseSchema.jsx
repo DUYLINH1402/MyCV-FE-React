@@ -274,7 +274,7 @@ const DatabaseSchema = ({ className = "" }) => {
       {
         id: "order_tracking",
         type: "tableNode",
-        position: { x: 0, y: 290 },
+        position: { x: 0, y: 303 },
         data: {
           label: "order_tracking",
           icon: Clock,
@@ -327,7 +327,7 @@ const DatabaseSchema = ({ className = "" }) => {
       {
         id: "food_variants",
         type: "tableNode",
-        position: { x: 1140, y: 290 },
+        position: { x: 1140, y: 303 },
         data: {
           label: "food_variants",
           icon: Tag,
@@ -381,7 +381,7 @@ const DatabaseSchema = ({ className = "" }) => {
       {
         id: "coupons",
         type: "tableNode",
-        position: { x: 760, y: 580 },
+        position: { x: 760, y: 593 },
         data: {
           label: "coupons",
           icon: Ticket,

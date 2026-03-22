@@ -44,7 +44,7 @@ const Contact = () => {
     phone: profile?.phoneNumber || "+84 123 456 789",
     github: profile?.githubUrl || "https://github.com/DUYLINH1402",
     githubUsername: profile?.githubUsername || "DUYLINH1402",
-    cvUrl: profile?.cvUrl || "/CV_NguyenDuyLinh.pdf",
+    cvUrl: profile?.cvUrl, // Lấy link CV từ API, không dùng file local
   };
 
   // Hàm copy email vào clipboard
@@ -134,16 +134,21 @@ const Contact = () => {
       actionLabel: "Visit",
       color: "purple",
     },
-    {
-      icon: FileDown,
-      label: "Resume/CV",
-      value: "Download PDF",
-      href: contactInfo.cvUrl,
-      download: true,
-      actionIcon: FileDown,
-      actionLabel: "Download",
-      color: "green",
-    },
+    // Chỉ hiển thị Download CV khi có link từ API
+    ...(contactInfo.cvUrl
+      ? [
+          {
+            icon: FileDown,
+            label: "Resume/CV",
+            value: "Download PDF",
+            href: contactInfo.cvUrl,
+            download: true,
+            actionIcon: FileDown,
+            actionLabel: "Download",
+            color: "green",
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -238,7 +243,7 @@ const Contact = () => {
                         {item.href ? (
                           <a
                             href={item.href}
-                            target={item.download ? "_self" : "_blank"}
+                            target="_blank"
                             rel="noopener noreferrer"
                             download={item.download}
                             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 dark:bg-dracula-background hover:bg-gray-200 dark:hover:bg-dracula-comment/50 text-gray-600 dark:text-dracula-foreground transition-colors opacity-0 group-hover:opacity-100">
