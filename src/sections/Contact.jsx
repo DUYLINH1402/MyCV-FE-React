@@ -156,7 +156,7 @@ const Contact = () => {
       id="contact"
       className="relative   from-white to-gray-50 dark:from-dracula-current/30 dark:to-dracula-background">
       {/* Container chính */}
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
+      <div className="max-w-7xl mt-20 mx-auto px-4 md:px-6">
         {/* Tiêu đề Section */}
         <div data-aos="fade-up">
           <SectionTitle

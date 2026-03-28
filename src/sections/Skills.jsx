@@ -106,7 +106,7 @@ const Skills = () => {
   return (
     <section id="skills" className="py-20 relative z-40">
       <div className="max-w-7xl mx-auto px-6">
-        <SectionTitle title="getSkills" subtitle="What I bring to the table" />
+        <SectionTitle title=".skills" subtitle="What I bring to the table" />
 
         {/* Skills Grid - Chỉ hiển thị skills không phải FRONTEND */}
         <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-5">

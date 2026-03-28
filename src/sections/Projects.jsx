@@ -40,7 +40,7 @@ const Projects = () => {
     return (
       <section id="projects" className="py-20 relative z-40">
         <div className="max-w-7xl mx-auto px-6">
-          <SectionTitle title="getProjects" subtitle="Things I've built" />
+          <SectionTitle title=".projects" subtitle="Things I've built" />
           <div className="flex flex-col items-center justify-center py-20">
             <Spinner size="lg" />
             <p className="mt-4 text-gray-500 dark:text-dracula-comment font-mono text-sm">
@@ -57,7 +57,7 @@ const Projects = () => {
     return (
       <section id="projects" className="py-20 relative z-40">
         <div className="max-w-7xl mx-auto px-6 mb-50px">
-          <SectionTitle title="getProjects" subtitle="Things I've built" />
+          <SectionTitle title=".projects" subtitle="Things I've built" />
           <div className="flex flex-col items-center justify-center py-20">
             <div className="p-4 bg-red-500/10 rounded-full mb-4">
               <AlertCircle size={32} className="text-red-500" />
@@ -72,7 +72,7 @@ const Projects = () => {
   return (
     <section id="projects" className="py-20 relative z-40">
       <div className="max-w-7xl mx-auto px-6">
-        <SectionTitle title="getProjects" subtitle="Things I've built" />
+        <SectionTitle title=".projects" subtitle="Things I've built" />
 
         {/* Terminal-style intro */}
         <div

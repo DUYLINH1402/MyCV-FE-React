@@ -46,7 +46,10 @@ const IntelliJMockup = ({ fileName = "DeveloperController.java" }) => {
           </div>
           <div>
             <span className="text-pink-600 dark:text-dracula-pink">@RequestMapping</span>(
-            <span className="text-amber-600 dark:text-dracula-yellow">"/api/v1/developer"</span>)
+            <span className="text-amber-600 dark:text-dracula-yellow">
+              "/api/v1/public/developer"
+            </span>
+            )
           </div>
           <div>
             <span className="text-pink-600 dark:text-dracula-pink">@RequiredArgsConstructor</span>

@@ -24,7 +24,7 @@ const Footer = () => {
             className="flex items-center gap-2 text-gray-500 dark:text-dracula-comment font-mono text-sm">
             <Coffee className="text-orange-500 dark:text-orange-400" size={18} />
             <span>
-              © {currentYear} Nguyen Duy Linh
+              © {currentYear} NguyenDuyLinh
               <span className="text-pink-500 dark:text-dracula-pink">.</span>
               <span className="text-green-600 dark:text-dracula-green">build</span>
               <span className="text-gray-500 dark:text-dracula-comment">()</span>

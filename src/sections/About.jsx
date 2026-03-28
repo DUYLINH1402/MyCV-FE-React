@@ -48,7 +48,7 @@ with hands-on Java Spring Boot projects.`,
   return (
     <section id="about" className="py-10 relative z-40">
       <div className="max-w-7xl mx-auto px-6">
-        <SectionTitle title="aboutMe" subtitle="Get to know me better" />
+        <SectionTitle title=".about" subtitle="Get to know me better" />
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Cột trái: Mô tả chi tiết với MagicCard */}
           <div data-aos="fade-right" data-aos-duration="800" className="space-y-6">
@@ -83,12 +83,12 @@ with hands-on Java Spring Boot projects.`,
               </p>
 
               {/* Professional Summary từ API */}
-              <p className="text-gray-900 dark:text-dracula-foreground leading-relaxed">
+              {/* <p className="text-gray-900 dark:text-dracula-foreground leading-relaxed">
                 <>
                   I enjoy designing RESTful APIs, optimizing database performance, and deploying
                   applications to the cloud using AWS and Docker.
                 </>
-              </p>
+              </p> */}
             </MagicCard>
           </div>
 

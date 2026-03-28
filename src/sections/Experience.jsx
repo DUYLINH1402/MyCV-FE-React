@@ -262,7 +262,7 @@ const Experience = () => {
     return (
       <section id="experience" className="py-20 relative z-40">
         <div className="max-w-6xl mx-auto px-6">
-          <SectionTitle title="getExperience" subtitle="Where I've worked" />
+          <SectionTitle title=".experience" subtitle="Where I've worked" />
           <div className="flex items-center justify-center py-20">
             <div className="animate-pulse text-orange-500 dark:text-orange-400 text-xl font-mono">
               [INFO] Loading experiences from database...
@@ -278,7 +278,7 @@ const Experience = () => {
     return (
       <section id="experience" className="py-20 relative z-40">
         <div className="max-w-6xl mx-auto px-6">
-          <SectionTitle title="getExperience" subtitle="Where I've worked" />
+          <SectionTitle title=".experience" subtitle="Where I've worked" />
           <div className="flex items-center justify-center py-20">
             <div className="text-red-500 dark:text-dracula-red text-lg font-mono">
               [ERROR] Failed to load experiences: {error}
@@ -294,7 +294,7 @@ const Experience = () => {
     return (
       <section id="experience" className="py-20 relative z-40">
         <div className="max-w-6xl mx-auto px-6">
-          <SectionTitle title="getExperience" subtitle="Where I've worked" />
+          <SectionTitle title=".experience" subtitle="Where I've worked" />
           <div className="flex items-center justify-center py-20">
             <div className="text-gray-500 dark:text-dracula-comment text-lg font-mono">
               [INFO] No experiences found. Starting career journey...
@@ -308,7 +308,7 @@ const Experience = () => {
   return (
     <section id="experience" className="py-20 relative z-40">
       <div className="max-w-6xl mx-auto px-6">
-        <SectionTitle title="getExperience" subtitle="Where I've worked" />
+        <SectionTitle title=".experience" subtitle="Where I've worked" />
 
         {/* Timeline container */}
         <div className="relative">

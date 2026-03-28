@@ -15,7 +15,9 @@ import {
   LoginModal,
   DatabaseSchema,
   DatabaseSchemaMobile,
+  SectionTitle,
   ScrollFloat,
+  ScrollIndicator,
   ScrollToTop,
 } from "../components";
 import { Hero, About, Skills, Experience, Projects, Architecture, Contact } from "../sections";
@@ -219,20 +221,25 @@ const HomePage = () => {
           <Projects />
           {/* Section Architecture - responsive cho cả desktop và mobile */}
           <Architecture />
+
+          {/* Section Database Schema */}
+          <section id="database-schema" className="py-5 relative z-40">
+            <div className="max-w-7xl mx-auto px-4 md:px-6">
+              <SectionTitle title=".databaseSchema" subtitle="How I design the data layer" />
+
+              {/* Database Schema Animation - Desktop */}
+              <div data-aos="fade-up" data-aos-duration="800">
+                <DatabaseSchema className="mx-auto mb-2 hidden lg:block" />
+              </div>
+              {/* Database Schema Animation - Mobile */}
+              <div data-aos="fade-up" data-aos-duration="800" className="px-2">
+                <DatabaseSchemaMobile className="mx-auto mb-2 block lg:hidden" />
+              </div>
+            </div>
+          </section>
           {/* Section Contact */}
           <Contact />
-          {/* Database Schema Animation - Desktop */}
-          <div data-aos="fade-up" data-aos-duration="800" className="mt-16">
-            <DatabaseSchema className="mx-auto mb-2 hidden lg:block" />
-          </div>
-          {/* Database Schema Animation - Mobile */}
-          <div data-aos="fade-up" data-aos-duration="800" className="mt-8 px-2">
-            <DatabaseSchemaMobile className="mx-auto mb-2 block lg:hidden" />
-          </div>
         </main>
-
-        {/* === FOOTER === */}
-        <Footer />
 
         {/* === THANK YOU SECTION - Hiệu ứng xuất hiện khi scroll đến cuối === */}
         <section className="min-h-[100vh] flex items-center justify-center ">
@@ -247,6 +254,8 @@ const HomePage = () => {
             Thank You!
           </ScrollFloat>
         </section>
+        {/* === FOOTER === */}
+        <Footer />
 
         {/* === LOGIN MODAL === */}
         <LoginModal
@@ -254,6 +263,9 @@ const HomePage = () => {
           onClose={() => setIsLoginModalOpen(false)}
           onLoginSuccess={handleLoginSuccess}
         />
+
+        {/* === SCROLL INDICATOR - Điều hướng chấm tròn bên phải === */}
+        <ScrollIndicator />
 
         {/* === SCROLL TO TOP BUTTON === */}
         <ScrollToTop />
